@@ -344,16 +344,10 @@ a:hover {
   text-align: center;
 }
 
-.hero .shot,
-.how .shot {
+.hero .shot {
   width: 100%;
   max-width: 260px;
   justify-self: center;
-}
-
-.how {
-  display: grid;
-  gap: 40px;
 }
 
 .shots {
@@ -765,6 +759,31 @@ a:hover {
   .step svg {
     grid-row: auto;
   }
+
+  /* Les règles ont toute la largeur : le barème à gauche, les petites lignes à droite. */
+  .rules-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 64px;
+    align-items: start;
+  }
+
+  .rules > li {
+    min-height: 64px;
+    padding: 16px 0;
+    font-size: 18px;
+  }
+
+  .rules .pts {
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .fine-block .fine-title {
+    margin-top: 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--color-hairline);
+  }
 }
 
 @media (min-width: 1000px) {
@@ -815,18 +834,8 @@ a:hover {
     align-items: flex-start;
   }
 
-  .hero .shot,
-  .how .shot {
+  .hero .shot {
     max-width: 300px;
-  }
-
-  /* Au large, le titre et les trois temps forment une colonne à gauche, centrée
-     sur la hauteur du téléphone à droite : un seul bloc, pas de vide dessous. */
-  .how {
-    grid-template-columns: minmax(0, 36rem) 300px;
-    justify-content: space-between;
-    align-items: center;
-    gap: 64px;
   }
 
   .steps {
