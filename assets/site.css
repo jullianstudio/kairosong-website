@@ -796,10 +796,12 @@ a:hover {
     max-width: 300px;
   }
 
-  /* Au large, les trois temps repassent en liste à gauche, le compteur tourne à droite. */
+  /* Au large, le titre et les trois temps forment une colonne à gauche, centrée
+     sur la hauteur du téléphone à droite : un seul bloc, pas de vide dessous. */
   .how {
-    grid-template-columns: minmax(0, 1fr) 300px;
-    align-items: start;
+    grid-template-columns: minmax(0, 36rem) 300px;
+    justify-content: space-between;
+    align-items: center;
     gap: 64px;
   }
 
