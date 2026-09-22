@@ -328,20 +328,12 @@ a:hover {
   overflow: hidden;
 }
 
-.shot-frame img {
+.shot-frame img,
+.shot-frame video {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.shot-note {
-  padding: 0 20px;
-  font-size: 11px;
-  line-height: 16px;
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--color-text-muted);
 }
 
 .shot figcaption {
@@ -352,10 +344,16 @@ a:hover {
   text-align: center;
 }
 
-.hero .shot {
+.hero .shot,
+.how .shot {
   width: 100%;
   max-width: 260px;
   justify-self: center;
+}
+
+.how {
+  display: grid;
+  gap: 40px;
 }
 
 .shots {
@@ -680,7 +678,8 @@ a:hover {
 @media (min-width: 720px) {
   .shots {
     grid-auto-flow: row;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
     margin: 0;
     padding: 0;
     overflow: visible;
@@ -755,8 +754,38 @@ a:hover {
     align-items: flex-start;
   }
 
-  .hero .shot {
+  .hero .shot,
+  .how .shot {
     max-width: 300px;
+  }
+
+  /* Au large, les trois temps repassent en liste à gauche, le compteur tourne à droite. */
+  .how {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    align-items: start;
+    gap: 64px;
+  }
+
+  .steps {
+    display: block;
+    border-top: 1px solid var(--color-hairline);
+  }
+
+  .steps > li {
+    border-top: 0;
+  }
+
+  .step {
+    grid-template-columns: 40px 1fr;
+    gap: 4px 20px;
+  }
+
+  .step svg {
+    grid-row: span 2;
+  }
+
+  .shots {
+    max-width: 960px;
   }
 
   .split {

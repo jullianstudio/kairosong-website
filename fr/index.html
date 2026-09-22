@@ -33,8 +33,8 @@
 <meta name="twitter:description" content="Mets n’importe quelle musique sur ton enceinte. Kairosong l’entend, et chacun devine l’année. Sans compte, sans rien installer : on rejoint par QR.">
 <meta name="twitter:image" content="https://kairosong.com/assets/og-fr.png">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Kairosong", "url": "https://kairosong.com/fr/", "applicationCategory": "GameApplication", "operatingSystem": "Any (web browser)", "browserRequirements": "Requires a modern web browser", "inLanguage": "fr", "description": "Mets n’importe quelle musique sur ton enceinte. Kairosong l’entend, et chacun devine l’année. Sans compte, sans rien installer : on rejoint par QR.", "image": "https://kairosong.com/assets/og-fr.png", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}, "sameAs": ["https://app.kairosong.com"]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "fr", "mainEntity": [{"@type": "Question", "name": "Kairosong joue-t-il la musique ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Il écoute : quelques secondes de son partent au service de reconnaissance, puis l’extrait est jeté. La musique, c’est la tienne, sur ton enceinte."}}, {"@type": "Question", "name": "Faut-il Spotify ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Toute source marche : une appli de streaming, un vinyle, un CD, la radio. Si la pièce l’entend, Kairosong aussi."}}, {"@type": "Question", "name": "C’est gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement. Pas de pub, pas d’abonnement, pas de compte."}}, {"@type": "Question", "name": "Ça marche sur iPhone ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, dans Safari — pour l’hôte comme pour chaque joueur. Une exception : le mode DJ sur un seul téléphone, qui joue et écoute sur le même appareil, demande Android."}}, {"@type": "Question", "name": "Combien de joueurs ?", "acceptedAnswer": {"@type": "Answer", "text": "Autant que ta pièce en accueille. Chacun rejoint avec son propre téléphone, en scannant le QR code de l’hôte."}}, {"@type": "Question", "name": "Et mes données ?", "acceptedAnswer": {"@type": "Answer", "text": "Pas de compte, pas d’e-mail : ton pseudo est éphémère et disparaît avec la partie. Tout le reste est sur la page confidentialité."}}]}</script>
-<script defer src="https://stats.kairosong.com/script.js" data-website-id="À_REMPLIR" data-domains="kairosong.com" data-exclude-search="true" data-exclude-hash="true"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "fr", "mainEntity": [{"@type": "Question", "name": "Kairosong joue-t-il la musique ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Il écoute : quelques secondes de son partent au service de reconnaissance, puis l’extrait est jeté. La musique, c’est la tienne, sur ton enceinte."}}, {"@type": "Question", "name": "Faut-il Spotify ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Toute source marche : une appli de streaming, un vinyle, un CD, la radio. Si la pièce l’entend, Kairosong aussi."}}, {"@type": "Question", "name": "C’est gratuit ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, entièrement. Pas de pub, pas d’abonnement, pas de compte."}}, {"@type": "Question", "name": "Ça marche sur iPhone ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui, dans Safari — pour l’hôte comme pour chaque joueur. Une exception : le mode DJ sur un seul téléphone, qui joue et écoute sur le même appareil, demande Android."}}, {"@type": "Question", "name": "Combien de joueurs ?", "acceptedAnswer": {"@type": "Answer", "text": "Autant de téléphones que tu veux — à 2, ça marche ; à 10, c’est la fête."}}, {"@type": "Question", "name": "Et mes données ?", "acceptedAnswer": {"@type": "Answer", "text": "Pas de compte, pas d’e-mail : ton pseudo est éphémère et disparaît avec la partie. Tout le reste est sur la page confidentialité."}}]}</script>
+<script defer src="https://stats.kairosong.com/script.js" data-website-id="03b3ffdd-07d6-4459-987c-b70a7a2dbf54" data-domains="kairosong.com" data-exclude-search="true" data-exclude-hash="true"></script>
 <script defer src="../assets/passerelle.js"></script>
 </head>
 <body>
@@ -51,7 +51,7 @@
 </div>
 </div>
 <figure class="shot">
-<div class="shot-frame"><!-- Capture à fournir : assets/screens/hero-reveal.png, 360×640, banc en mode mock. Remplacer ce commentaire et la note par <img src="…" width="360" height="640" alt="…">. --><span class="shot-note">Capture à venir</span></div>
+<div class="shot-frame"><video autoplay muted loop playsinline preload="metadata" width="360" height="640" poster="../media/revelation-fr.png" aria-label="On appuie sur Révéler, puis la pochette et l’année, 2013, apparaissent."><source src="../media/revelation-fr.webm" type="video/webm"><source src="../media/revelation-fr.mp4" type="video/mp4"></video></div>
 <figcaption>La révélation : la pochette, et l’année.</figcaption>
 </figure>
 </section>
@@ -59,11 +59,17 @@
 <section class="section" aria-labelledby="how">
 <p class="eyebrow">Comment ça marche</p>
 <h2 class="title" id="how">Trois temps</h2>
+<div class="how">
 <ol class="lines steps">
 <li class="step"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="9" y="4" width="22" height="32" rx="4"/><circle cx="20" cy="25" r="6"/><circle cx="20" cy="25" r="1.5"/><circle cx="20" cy="12" r="2.5"/></svg><h3>Ta musique</h3><p>Elle passe sur ton enceinte : une playlist, un vinyle, la radio.</p></li>
 <li class="step"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M14 15v10M20 9v22M26 13v14"/><path d="M8 11a15 15 0 0 0 0 18M32 11a15 15 0 0 1 0 18"/></svg><h3>Kairosong écoute</h3><p>Quelques secondes lui suffisent pour reconnaître le morceau.</p></li>
 <li class="step"><svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><rect x="11" y="3" width="18" height="34" rx="4"/><path d="M15 19h10M17 24h6"/><path d="M18 32h4"/></svg><h3>Chacun devine</h3><p>Chaque joueur choisit l’année sur son téléphone. Puis la réponse tombe.</p></li>
 </ol>
+<figure class="shot">
+<div class="shot-frame"><video autoplay muted loop playsinline preload="metadata" width="360" height="640" poster="../media/manche-fr.png" aria-label="Les rouleaux du compteur tournent jusqu’à l’année choisie, 1994."><source src="../media/compteur-fr.webm" type="video/webm"><source src="../media/compteur-fr.mp4" type="video/mp4"></video></div>
+<figcaption>L’année se choisit au compteur.</figcaption>
+</figure>
+</div>
 </section>
 
 <div class="split">
@@ -92,22 +98,18 @@
 
 <section class="section" aria-labelledby="screens">
 <p class="eyebrow">Écrans</p>
-<h2 class="title" id="screens">Une soirée en quatre écrans</h2>
+<h2 class="title" id="screens">Du salon au dernier morceau</h2>
 <ul class="shots">
 <li><figure class="shot">
-<div class="shot-frame"><!-- Capture à fournir : assets/screens/lobby.png, 360×640, banc en mode mock. Remplacer ce commentaire et la note par <img src="…" width="360" height="640" alt="…">. --><span class="shot-note">Capture à venir</span></div>
+<div class="shot-frame"><img src="../media/accueil-fr.png" width="360" height="640" alt="L’accueil de Kairosong : créer une partie ou entrer un code" loading="lazy" decoding="async"></div>
+<figcaption>L’écran d’accueil</figcaption>
+</figure></li>
+<li><figure class="shot">
+<div class="shot-frame"><img src="../media/salon-fr.png" width="360" height="640" alt="Le salon : un QR code que les joueurs scannent pour rejoindre" loading="lazy" decoding="async"></div>
 <figcaption>Le salon, avec son QR code</figcaption>
 </figure></li>
 <li><figure class="shot">
-<div class="shot-frame"><!-- Capture à fournir : assets/screens/round.png, 360×640, banc en mode mock. Remplacer ce commentaire et la note par <img src="…" width="360" height="640" alt="…">. --><span class="shot-note">Capture à venir</span></div>
-<figcaption>Une manche : la barre des années</figcaption>
-</figure></li>
-<li><figure class="shot">
-<div class="shot-frame"><!-- Capture à fournir : assets/screens/reveal.png, 360×640, banc en mode mock. Remplacer ce commentaire et la note par <img src="…" width="360" height="640" alt="…">. --><span class="shot-note">Capture à venir</span></div>
-<figcaption>La révélation</figcaption>
-</figure></li>
-<li><figure class="shot">
-<div class="shot-frame"><!-- Capture à fournir : assets/screens/summary.png, 360×640, banc en mode mock. Remplacer ce commentaire et la note par <img src="…" width="360" height="640" alt="…">. --><span class="shot-note">Capture à venir</span></div>
+<div class="shot-frame"><img src="../media/bilan-fr.png" width="360" height="640" alt="Le bilan de fin de partie, avec le score de chaque joueur" loading="lazy" decoding="async"></div>
 <figcaption>Le bilan de la soirée</figcaption>
 </figure></li>
 </ul>
@@ -130,7 +132,7 @@
 <li><details><summary>Faut-il Spotify ?<span class="ks-chevron" aria-hidden="true"></span></summary><p>Non. Toute source marche : une appli de streaming, un vinyle, un CD, la radio. Si la pièce l’entend, Kairosong aussi.</p></details></li>
 <li><details><summary>C’est gratuit ?<span class="ks-chevron" aria-hidden="true"></span></summary><p>Oui, entièrement. Pas de pub, pas d’abonnement, pas de compte.</p></details></li>
 <li><details><summary>Ça marche sur iPhone ?<span class="ks-chevron" aria-hidden="true"></span></summary><p>Oui, dans Safari — pour l’hôte comme pour chaque joueur. Une exception : le mode DJ sur un seul téléphone, qui joue et écoute sur le même appareil, demande Android.</p></details></li>
-<li><details><summary>Combien de joueurs ?<span class="ks-chevron" aria-hidden="true"></span></summary><p>Autant que ta pièce en accueille. Chacun rejoint avec son propre téléphone, en scannant le QR code de l’hôte.</p></details></li>
+<li><details><summary>Combien de joueurs ?<span class="ks-chevron" aria-hidden="true"></span></summary><p>Autant de téléphones que tu veux — à 2, ça marche ; à 10, c’est la fête.</p></details></li>
 <li><details><summary>Et mes données ?<span class="ks-chevron" aria-hidden="true"></span></summary><p>Pas de compte, pas d’e-mail : ton pseudo est éphémère et disparaît avec la partie. Tout le reste est sur la <a href="../fr/privacy/">page confidentialité</a>.</p></details></li>
 </ul>
 </section>
@@ -141,6 +143,7 @@
 </section>
 </div>
 </main>
+<script>if(matchMedia('(prefers-reduced-motion: reduce)').matches)document.querySelectorAll('video[autoplay]').forEach(function(v){v.removeAttribute('autoplay');v.pause();v.controls=true;v.load();});</script>
 <footer class="site-foot">
 <div class="wrap">
 <div class="foot-row">
