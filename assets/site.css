@@ -492,12 +492,12 @@ a:hover {
 /* ─── Kairos ────────────────────────────────────────────────────────────── */
 
 /* Une histoire, pas une règle : la seule zone claire de la page, un dégradé de la
-   palette, de l'or vers l'ivoire, encré de nuit. Même geste que l'en-tête d'Explore
+   palette, de l'or clair vers l'or profond, encré de nuit. Même geste que l'en-tête d'Explore
    dans l'app (une lueur dans un coin, qui s'étend) ; rien à toucher dedans. */
 .kairos {
   margin: 72px calc(-1 * var(--screen-side)) 0;
   padding: 56px var(--screen-side) 48px;
-  background: radial-gradient(ellipse 140% 110% at 15% 0%, var(--color-gold) 0%, var(--color-gold-light) 45%, var(--color-ivory) 100%);
+  background: radial-gradient(ellipse 140% 110% at 15% 0%, var(--color-gold-light) 0%, var(--color-gold) 50%, var(--color-amber) 100%);
   color: var(--color-night-900);
 }
 
