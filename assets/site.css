@@ -491,6 +491,22 @@ a:hover {
 
 /* ─── Kairos ────────────────────────────────────────────────────────────── */
 
+/* Une histoire, pas une règle : la seule zone teintée de la page. Même geste que
+   l'en-tête d'Explore dans l'app, qui prend la couleur de la pochette et s'éteint
+   vers le noir ; ici une teinte lie-de-vin, fixe. Pas d'or : rien à toucher. */
+.kairos {
+  --kairos-glow: #71304a;
+  --kairos-mid: #381526;
+  --kairos-deep: #12070c;
+  margin: 72px calc(-1 * var(--screen-side)) 0;
+  padding: 56px var(--screen-side) 48px;
+  background: radial-gradient(ellipse 130% 95% at 20% 0%, var(--kairos-glow) 0%, var(--kairos-mid) 55%, var(--kairos-deep) 100%);
+}
+
+.kairos .eyebrow {
+  color: var(--color-text-secondary);
+}
+
 .kairos p {
   margin: 0 0 16px;
   max-width: var(--measure);
@@ -502,8 +518,18 @@ a:hover {
   text-wrap: pretty;
 }
 
+.kairos p:last-child {
+  margin-bottom: 0;
+}
+
 .kairos .kairos-word {
-  font-weight: 600;
+  display: block;
+  margin: 8px 0 4px;
+  font-variation-settings: 'opsz' 72;
+  font-size: 64px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 /* ─── FAQ ───────────────────────────────────────────────────────────────── */
@@ -837,8 +863,18 @@ a:hover {
     font-size: 34px;
   }
 
+  .kairos {
+    margin: 112px 0 0;
+    padding: 88px 88px 80px;
+    border-radius: var(--radius-lg);
+  }
+
   .kairos p {
     font-size: 24px;
+  }
+
+  .kairos .kairos-word {
+    font-size: 96px;
   }
 }
 
