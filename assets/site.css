@@ -491,20 +491,18 @@ a:hover {
 
 /* ─── Kairos ────────────────────────────────────────────────────────────── */
 
-/* Une histoire, pas une règle : la seule zone teintée de la page. Même geste que
-   l'en-tête d'Explore dans l'app, qui prend la couleur de la pochette et s'éteint
-   vers le noir ; ici une teinte lie-de-vin, fixe. Pas d'or : rien à toucher. */
+/* Une histoire, pas une règle : la seule zone claire de la page, un dégradé de la
+   palette, de l'or vers l'ivoire, encré de nuit. Même geste que l'en-tête d'Explore
+   dans l'app (une lueur dans un coin, qui s'étend) ; rien à toucher dedans. */
 .kairos {
-  --kairos-glow: #71304a;
-  --kairos-mid: #381526;
-  --kairos-deep: #12070c;
   margin: 72px calc(-1 * var(--screen-side)) 0;
   padding: 56px var(--screen-side) 48px;
-  background: radial-gradient(ellipse 130% 95% at 20% 0%, var(--kairos-glow) 0%, var(--kairos-mid) 55%, var(--kairos-deep) 100%);
+  background: radial-gradient(ellipse 140% 110% at 15% 0%, var(--color-gold) 0%, var(--color-gold-light) 45%, var(--color-ivory) 100%);
+  color: var(--color-night-900);
 }
 
 .kairos .eyebrow {
-  color: var(--color-text-secondary);
+  color: var(--color-night-700);
 }
 
 .kairos p {
@@ -514,7 +512,7 @@ a:hover {
   font-variation-settings: 'opsz' 18;
   font-size: 21px;
   line-height: 1.55;
-  color: var(--color-text);
+  color: var(--color-night-900);
   text-wrap: pretty;
 }
 
