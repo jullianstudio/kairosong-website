@@ -1,0 +1,785 @@
+/* Kairosong — la vitrine. Une seule feuille pour toutes les pages.
+   Jetons repris de Kairosong-design-system/tokens.json (seuls ceux qui servent ici),
+   recettes de components/bundle.css (.ks-btn, .ks-door-rule, .ks-chevron, liens, focus).
+   Règles du système : noir pur, l'or ne veut dire qu'action ou état actif, une seule donnée
+   ivoire (le wordmark), aucune carte ni panneau, Playfair pour le seul mot « Kairosong ». */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('fonts/Inter-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Newsreader';
+  src: url('fonts/Newsreader-Variable.woff2') format('woff2');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('fonts/PlayfairDisplay-Variable.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+
+  --color-bg: #000000;
+  --color-night-900: #0f0e0d;
+  --color-night-700: #272420;
+  --color-night-600: #332f29;
+  --color-gold-light: #f6c773;
+  --color-gold: #e0a448;
+  --color-amber: #c98a2e;
+  --color-off-white: #e4e1db;
+  --color-ivory: #e8dcc4;
+  --color-warm-grey-light: #c3bbad;
+  --color-warm-grey: #9c9384;
+  --color-hairline: rgba(255, 255, 255, 0.1);
+  --color-gold-a50: rgba(224, 164, 72, 0.5);
+
+  --color-surface: var(--color-night-700);
+  --color-surface-alt: var(--color-night-600);
+  --color-accent: var(--color-gold);
+  --color-accent-strong: var(--color-gold-light);
+  --color-text: var(--color-off-white);
+  --color-text-secondary: var(--color-warm-grey-light);
+  --color-text-muted: var(--color-warm-grey);
+  --color-readout: var(--color-ivory);
+  --color-focus-ring: var(--color-gold-light);
+
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-title: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --radius-lg: 16px;
+  --tracking-wider: 0.12em;
+  --tracking-widest: 0.2em;
+  --touch-min: 44px;
+  --screen-side: 28px;
+  --screen-top-bar: 40px;
+  --screen-foot: 24px;
+  --measure: 34rem;
+  --page-max: 72rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  font-optical-sizing: auto;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: var(--color-accent);
+  text-underline-offset: 0.2em;
+}
+a:hover {
+  color: var(--color-accent-strong);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ─── Charpente ─────────────────────────────────────────────────────────── */
+
+.wrap {
+  width: 100%;
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--screen-side);
+}
+
+.section {
+  padding: 72px 0 0;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.title {
+  margin: 0 0 24px;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 40;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.15;
+  color: var(--color-text);
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 0;
+  max-width: var(--measure);
+  color: var(--color-text-secondary);
+}
+
+/* Filet or : il sépare deux moments, jamais deux lignes d'une liste. */
+.ks-door-rule {
+  display: block;
+  width: 100%;
+  height: 1px;
+  margin: 72px 0 0;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold-a50) 30%,
+    var(--color-gold-light) 50%,
+    var(--color-gold-a50) 70%,
+    transparent
+  );
+}
+
+/* ─── Boutons (recette .ks-btn) ─────────────────────────────────────────── */
+
+.ks-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  min-width: var(--touch-min);
+  padding: 14px 32px;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: var(--tracking-wider);
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+}
+
+/* Or plein — l'objet le plus lumineux de l'écran ; il n'y en a jamais deux. */
+.ks-btn--fill-gold,
+.ks-btn--fill-gold:hover {
+  background: linear-gradient(90deg, var(--color-gold) 0%, var(--color-amber) 100%);
+  border-color: var(--color-gold-a50);
+  color: var(--color-night-900);
+}
+.ks-btn--fill-gold:active {
+  background: linear-gradient(90deg, var(--color-gold-light) 0%, var(--color-gold) 100%);
+  border-color: var(--color-gold-light);
+}
+
+/* Plaque à filet or — l'action forte qui n'est pas LE geste de l'écran. */
+.ks-btn--plate-gold,
+.ks-btn--plate-gold:hover {
+  background: var(--color-surface);
+  border-color: var(--color-gold-a50);
+  color: var(--color-accent);
+}
+.ks-btn--plate-gold:active {
+  background: var(--color-surface-alt);
+  border-color: var(--color-accent-strong);
+  color: var(--color-accent-strong);
+}
+
+.ks-chevron {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: rotate(135deg);
+  transition: transform 170ms ease-out;
+}
+
+/* ─── Accueil ───────────────────────────────────────────────────────────── */
+
+.hero {
+  display: grid;
+  gap: 48px;
+  padding-top: var(--screen-top-bar);
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  font-weight: 400;
+}
+
+.brand img {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--color-readout);
+}
+
+.motto {
+  margin: 28px 0 0;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 40;
+  /* Deux temps, deux lignes : à 360 px, « Chaque musique a son moment. » ne tient qu'à 22 px. */
+  font-size: clamp(22px, 6.1vw, 26px);
+  line-height: 1.3;
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.hero .lead {
+  margin-top: 20px;
+}
+
+.hero-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.hero-cta .ks-btn {
+  width: 100%;
+  max-width: 320px;
+}
+
+.fine {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text-muted);
+}
+
+/* ─── Emplacements de capture (Jul les fournira, 360 × 640) ─────────────── */
+
+.shot {
+  margin: 0;
+}
+
+.shot-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 360 / 640;
+  width: 100%;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+.shot-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shot-note {
+  padding: 0 20px;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+
+.shot figcaption {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--color-text-secondary);
+  text-align: center;
+}
+
+.hero .shot {
+  width: 100%;
+  max-width: 260px;
+  justify-self: center;
+}
+
+.shots {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 62%;
+  gap: 16px;
+  margin: 0 calc(-1 * var(--screen-side));
+  padding: 0 var(--screen-side) 8px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 0 var(--screen-side);
+  list-style: none;
+}
+
+.shots > li {
+  scroll-snap-align: start;
+}
+
+/* ─── Listes à filets : comment ça marche, ce qu'il faut, règles, FAQ ───── */
+
+.lines {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.lines > li {
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 4px 20px;
+  padding: 24px 0;
+}
+
+.step svg {
+  grid-row: span 2;
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-muted);
+}
+
+.step h3,
+.need h3 {
+  margin: 0;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 40;
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+.step p,
+.need p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.need {
+  padding: 20px 0;
+}
+
+.aside {
+  margin: 20px 0 0;
+  max-width: var(--measure);
+  color: var(--color-text-secondary);
+}
+
+.rules > li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: var(--touch-min);
+  padding: 14px 0;
+}
+
+.rules .pts {
+  flex: none;
+  font-size: 20px;
+  line-height: 28px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+
+.rules .pts small {
+  margin-left: 4px;
+  font-size: 12px;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ─── Kairos ────────────────────────────────────────────────────────────── */
+
+.kairos p {
+  margin: 0 0 16px;
+  max-width: var(--measure);
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 18;
+  font-size: 21px;
+  line-height: 1.55;
+  color: var(--color-text);
+  text-wrap: pretty;
+}
+
+.kairos .kairos-word {
+  font-weight: 600;
+}
+
+/* ─── FAQ ───────────────────────────────────────────────────────────────── */
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 60px;
+  padding: 16px 0;
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 40;
+  font-size: 20px;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary .ks-chevron {
+  color: var(--color-text-muted);
+  margin-right: 4px;
+}
+
+.faq details[open] summary .ks-chevron {
+  transform: rotate(-45deg);
+}
+
+.faq details p {
+  margin: 0;
+  padding: 0 0 20px;
+  max-width: var(--measure);
+  color: var(--color-text-secondary);
+}
+
+/* ─── Envoi et pied de page ─────────────────────────────────────────────── */
+
+.send {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 72px 0 0;
+  text-align: center;
+}
+
+.send p {
+  margin: 0;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 40;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.send .ks-btn {
+  width: 100%;
+  max-width: 320px;
+}
+
+.site-foot {
+  margin-top: 72px;
+  padding: 28px 0 calc(var(--screen-foot) + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--color-hairline);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+}
+
+.foot-links,
+.langs {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.foot-links a,
+.langs a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  padding: 0 10px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+}
+
+.foot-links li:first-child a,
+.langs li:first-child a {
+  padding-left: 0;
+}
+
+.foot-links a:hover,
+.langs a:hover {
+  color: var(--color-text-secondary);
+}
+
+/* La langue affichée : l'or de l'état actif. */
+.langs a[aria-current='page'] {
+  color: var(--color-accent);
+}
+
+.copyright {
+  margin: 8px 0 0;
+  color: var(--color-text-muted);
+}
+
+/* ─── Pages secondaires : Privacy, Legal, 404 ──────────────────────────── */
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  padding-top: var(--screen-top-bar);
+}
+
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--touch-min);
+  text-decoration: none;
+}
+
+.home-link img {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+}
+
+.home-link .wordmark {
+  font-size: 24px;
+}
+
+.doc {
+  max-width: 40rem;
+  padding-top: 48px;
+}
+
+.doc h1 {
+  margin: 0 0 8px;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 40;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.doc h2 {
+  margin: 40px 0 12px;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 40;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.3;
+}
+
+.doc p,
+.doc li {
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.doc p {
+  margin: 0 0 14px;
+}
+
+.doc ul {
+  margin: 0 0 14px;
+  padding-left: 20px;
+}
+
+.doc address {
+  font-style: normal;
+}
+
+.doc .updated {
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.not-found {
+  padding-top: 88px;
+}
+
+.not-found .lines li {
+  padding: 16px 0;
+}
+
+.not-found .lines p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+/* ─── Grand écran ───────────────────────────────────────────────────────── */
+
+@media (min-width: 720px) {
+  .shots {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 40px;
+    border-top: 0;
+  }
+
+  .steps > li {
+    border-top: 1px solid var(--color-hairline);
+  }
+
+  .step {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .step svg {
+    grid-row: auto;
+  }
+}
+
+@media (min-width: 1000px) {
+  :root {
+    --screen-side: 48px;
+  }
+
+  .section,
+  .send {
+    padding-top: 112px;
+  }
+
+  .ks-door-rule {
+    margin-top: 112px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr minmax(0, 300px);
+    align-items: center;
+    gap: 64px;
+    padding-top: 88px;
+  }
+
+  .hero-text {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .brand {
+    flex-direction: row;
+    gap: 20px;
+  }
+
+  .wordmark {
+    font-size: 48px;
+  }
+
+  .motto {
+    font-size: 44px;
+    line-height: 1.15;
+  }
+
+  .hero .lead {
+    font-size: 18px;
+  }
+
+  .hero-cta {
+    align-items: flex-start;
+  }
+
+  .hero .shot {
+    max-width: 300px;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 64px;
+  }
+
+  .title {
+    font-size: 34px;
+  }
+
+  .kairos p {
+    font-size: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
