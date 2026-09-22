@@ -504,8 +504,8 @@ a:hover {
   max-width: var(--measure);
   font-family: var(--font-title);
   font-variation-settings: 'opsz' 18;
-  font-size: 21px;
-  line-height: 1.55;
+  font-size: 19px;
+  line-height: 1.5;
   color: var(--color-night-900);
   text-wrap: pretty;
 }
@@ -518,7 +518,7 @@ a:hover {
   display: block;
   margin: 8px 0 4px;
   font-variation-settings: 'opsz' 72;
-  font-size: 64px;
+  font-size: 56px;
   line-height: 1;
   font-weight: 400;
   letter-spacing: -0.01em;
@@ -760,6 +760,12 @@ a:hover {
     grid-row: auto;
   }
 
+  .needs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 40px;
+  }
+
   /* Les règles ont toute la largeur : le barème à gauche, les petites lignes à droite. */
   .rules-body {
     display: grid;
@@ -870,18 +876,22 @@ a:hover {
     font-size: 34px;
   }
 
+  /* À droite des trois temps, à la place de l'ancienne capture : un encart, pas une section. */
   .kairos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin: 112px 0 0;
-    padding: 88px 88px 80px;
+    padding: 48px 48px 44px;
     border-radius: var(--radius-lg);
   }
 
   .kairos p {
-    font-size: 24px;
+    font-size: 20px;
   }
 
   .kairos .kairos-word {
-    font-size: 96px;
+    font-size: 72px;
   }
 }
 
