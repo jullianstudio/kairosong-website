@@ -730,6 +730,83 @@ a:hover {
   vector-effect: non-scaling-stroke;
 }
 
+/* ─── Les fantômes restent : le milieu de la page, jusqu'aux questions ──── */
+
+/* Les années du cœur du jeu, derrière le texte, faibles (0,25 au plus : le contraste AA tient
+   partout, car la parallaxe et le flottement les font passer sous le texte). */
+.nuit {
+  position: relative;
+  isolation: isolate;
+}
+
+.fantomes {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: calc(-1 * var(--screen-side));
+  right: calc(-1 * var(--screen-side));
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  -webkit-mask-image: linear-gradient(transparent, #000 8%, #000 90%, transparent);
+  mask-image: linear-gradient(transparent, #000 8%, #000 90%, transparent);
+}
+
+/* Deux couches plus hautes que le champ : la parallaxe (assets/fantomes.js) les décale. */
+.fantomes-couche {
+  position: absolute;
+  left: 0;
+  right: 0;
+  will-change: transform;
+}
+
+.fantomes-pres {
+  top: -15%;
+  height: 130%;
+}
+
+.fantomes-loin {
+  top: -30%;
+  height: 160%;
+}
+
+/* Le même dessin que le Canvas : une année floue, faite d'une ombre de texte, rien d'autre. */
+.fantomes span {
+  position: absolute;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 44;
+  font-size: var(--s);
+  line-height: 1;
+  font-weight: 500;
+  white-space: nowrap;
+  color: transparent;
+  text-shadow: 0 0 var(--b) rgba(156, 147, 132, var(--a));
+  animation: fantomes-flotte var(--fd) ease-in-out var(--fl) infinite alternate paused;
+}
+
+/* Elles flottent, quelques pixels par seconde, seulement tant que le champ est à l'écran. */
+@media (prefers-reduced-motion: no-preference) {
+  .nuit.is-live .fantomes span {
+    animation-play-state: running;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fantomes span {
+    animation: none;
+  }
+}
+
+@keyframes fantomes-flotte {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(var(--fx), var(--fy));
+  }
+}
+
 /* ─── La pleine lune, avant le dernier « Jouer » (assets/lune.js) ────────── */
 
 .lune {
@@ -1277,6 +1354,11 @@ a:hover {
   .heart-head .souvenirs {
     height: 340px;
     margin: 24px 0 0;
+  }
+
+  .fantomes {
+    left: 0;
+    right: 0;
   }
 
   /* La prose reste à droite, la charnière juste dessous ; après le silence, la réponse et la
