@@ -460,7 +460,12 @@ a:hover {
   color: var(--color-text-secondary);
 }
 
-/* ─── Le cœur du jeu : de la prose, un filet, puis la chute en Newsreader ─ */
+/* ─── Le cœur du jeu : la prose, puis ton année, qui roule jusqu'à la réponse ─ */
+
+.heart {
+  position: relative;
+  isolation: isolate;
+}
 
 .heart-body {
   max-width: var(--measure);
@@ -474,42 +479,13 @@ a:hover {
   text-wrap: pretty;
 }
 
-/* En fond de la section, derrière le titre et les deux premiers paragraphes, bord à bord : des
-   années floues dérivent, se recoupent, et l'une se fixe (assets/coeur.js). */
-.heart {
-  position: relative;
-  isolation: isolate;
+.heart-body p:last-child {
+  margin-bottom: 0;
 }
 
-.souvenirs-fond {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: calc(-1 * var(--screen-side));
-  right: calc(-1 * var(--screen-side));
-  height: 1000px;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(transparent, #000 10%, #000 70%, transparent);
-  mask-image: linear-gradient(transparent, #000 10%, #000 70%, transparent);
-}
-
-.souvenirs-fond canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* Le pari, après la prose : « You call a year. », puis 1983 qui se fixe. Un cran sous le titre, comme
-   « la réponse tombe » et « Sometimes spot on. » ; la dernière phrase, nettement plus petite. */
-.heart-bet {
-  margin-top: 24px;
-}
-
-.heart-line,
-.heart-turn .turn-a,
-.heart-turn .turn-b span:first-child {
-  margin: 0;
+/* « You call a year. » et « Then the answer lands… » : un cran sous le titre. */
+.heart-line {
+  margin: 40px 0 0;
   font-family: var(--font-title);
   font-variation-settings: 'opsz' 32;
   font-weight: 400;
@@ -518,56 +494,75 @@ a:hover {
   color: var(--color-text);
 }
 
-/* La clairière sous le pari : 1983 s'y fixe, rien ne passe derrière. */
-.souvenirs {
-  position: relative;
-  height: 110px;
-  margin: 0;
-}
-
-/* Sans script : l'année seule, à la place exacte où le dessin la pose. */
-.souvenirs-year {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  margin: 0;
+/* Une seule année, la donnée ivoire de l'écran. Seul le chiffre des dizaines tourne : une
+   fenêtre d'un chiffre, fondue en haut et en bas (le rouleau, posé par assets/coeur.js). */
+.heart-year {
+  display: flex;
+  margin: 8px 0 0;
   font-family: var(--font-title);
   font-variation-settings: 'opsz' 44;
-  font-size: 64px;
-  line-height: 1;
   font-weight: 500;
+  font-size: 120px;
+  line-height: 1;
   letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
   color: var(--color-readout);
 }
 
-.souvenirs.is-drawn .souvenirs-year {
-  visibility: hidden;
+.heart-roue {
+  display: block;
+  height: 1em;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
 }
 
-/* La chute, étirée pour que le défilement la raconte : « Then the answer lands… », un blanc, la
-   frise et la réponse, « Sometimes spot on. », un autre blanc, puis l'écart et la dernière phrase
-   (chaque étape arrive quand elle entre à l'écran, assets/coeur.js). */
-.heart-turn .frise {
-  margin-top: 22svh;
+.heart-rouleau {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-2em);
 }
 
-.heart-turn .turn-b {
-  margin: 40px 0 0;
+.heart-rouleau span {
+  display: block;
+  height: 1em;
+}
+
+.heart-line.heart-then {
+  margin-top: 16px;
+}
+
+.heart-coda {
+  margin: 24px 0 0;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 32;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--color-text);
   text-wrap: pretty;
 }
 
-.turn-b span {
-  display: block;
+/* Les années fantômes du cœur, posées par assets/coeur.js là où rien n'est écrit : floues, fines,
+   jamais 1963 ni 1983. */
+.heart-fond {
+  position: absolute;
+  z-index: -1;
+  inset: 0 calc(-1 * var(--screen-side));
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
 }
 
-.turn-b span + span {
-  margin-top: 18svh;
+.heart-fond span {
+  position: absolute;
   font-family: var(--font-title);
-  font-variation-settings: 'opsz' 20;
-  font-size: 18px;
-  line-height: 1.4;
-  color: var(--color-text-secondary);
+  font-variation-settings: 'opsz' 44;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: var(--color-readout);
+  filter: blur(3.5px);
 }
 
 /* ─── Ce qui reste : le carnet de l'app, joué une fois, puis une phrase ───── */
@@ -667,40 +662,70 @@ a:hover {
   z-index: 1;
 }
 
-/* L'écart : une seule courbe, de ton année à la réponse, comme l'arc d'un pari dans l'app.
-   La fenêtre est centrée sur la réponse (1963) : c'est elle que l'œil trouve au milieu. */
-.frise--gap {
+/* L'écart du cœur : 1930 à 1990 sur toute la colonne, ton pari en creux et gris, la réponse
+   pleine et ivoire, une seule courbe de l'un à l'autre. Les deux années au-dessus. */
+.frise--coeur {
   --from: 1930;
-  --to: 1996;
-  --o: 64px;
+  --to: 1990;
+  --o: 36px;
+  --h: 34px;
+  width: auto;
+  max-width: none;
+  height: 100px;
+  margin: 32px 14px 0;
 }
 
-/* Les deux années au-dessus de la courbe : ton pari petit et gris, la réponse en ivoire. */
+.frise--coeur .frise-minor,
+.frise--coeur .frise-major {
+  right: -1px;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.frise--coeur .frise-rule {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.frise--coeur .frise-minor {
+  background-size: calc((100% - 1px) / (var(--to) - var(--from))) 100%;
+}
+
+.frise--coeur .frise-major {
+  background-size: calc((100% - 1px) * 10 / (var(--to) - var(--from))) 100%;
+}
+
+.frise--coeur .frise-year {
+  top: calc(var(--o) + 36px);
+}
+
+.frise--coeur .frise-dot--guess {
+  background: var(--color-bg);
+  border-color: var(--color-text-muted);
+}
+
 .frise-mark {
   position: absolute;
+  top: 0;
   left: calc((var(--y) - var(--from)) / (var(--to) - var(--from)) * 100%);
   transform: translateX(-50%);
   font-family: var(--font-code);
+  font-size: 11px;
   line-height: 1;
+  letter-spacing: 0.04em;
   white-space: nowrap;
 }
 
 .frise-mark--guess {
-  top: calc(var(--o) - 32px);
-  font-size: 11px;
-  letter-spacing: 0.04em;
   color: var(--color-text-muted);
 }
 
 .frise-mark--answer {
-  top: calc(var(--o) - 42px);
-  font-size: 18px;
   color: var(--color-readout);
 }
 
 .frise-arc {
   --y: var(--answer);
-  --h: 30px;
   top: calc(var(--o) + 20px - var(--h));
   width: calc((var(--guess) - var(--answer)) / (var(--to) - var(--from)) * 100%);
   height: var(--h);
@@ -888,46 +913,49 @@ a:hover {
     transition: opacity 400ms ease-out;
   }
 
-  /* L'écart, au fil du défilement, chaque étape à son entrée à l'écran (assets/coeur.js) :
-     1. is-on : la frise et la seule réponse, 1963 ;
-     2. is-spot : « Sometimes spot on. » ;
-     3. is-gap : ton pari se pose sur 1983, la courbe se trace de lui à la réponse, puis la
-        dernière phrase. */
-  .heart-turn.is-waiting .frise,
-  .heart-turn.is-waiting .frise-dot--guess,
-  .heart-turn.is-waiting .frise-mark--guess,
-  .heart-turn.is-waiting .turn-b span {
+  /* Le cœur, une fois, quand l'année est bien à l'écran (assets/coeur.js) : le rouleau passe
+     de 8 à 6 en deux crans, puis « Then the answer lands… », puis la frise et la dernière
+     phrase. Chaque temps part à la fin du précédent. */
+  .heart.is-waiting .heart-rouleau {
+    transform: translateY(0);
+  }
+
+  .heart.is-waiting .heart-then,
+  .heart.is-waiting .frise-arc,
+  .heart.is-waiting .frise-dot,
+  .heart.is-waiting .frise-mark,
+  .heart.is-waiting .heart-coda {
     opacity: 0;
   }
 
-  .heart-turn.is-waiting .frise-arc {
-    clip-path: inset(0 0 0 100%);
+  .heart.is-playing .heart-rouleau {
+    animation: heart-roule 340ms both;
   }
 
-  .heart-turn.is-on .frise {
-    opacity: 1;
-    transition: opacity 1000ms ease-out 400ms;
+  .heart.is-playing .heart-then {
+    transition: opacity 250ms ease-out 340ms;
   }
 
-  .heart-turn.is-spot .turn-b span:first-child {
-    opacity: 1;
-    transition: opacity 1000ms ease-out 200ms;
+  .heart.is-playing .frise-arc,
+  .heart.is-playing .frise-dot,
+  .heart.is-playing .frise-mark,
+  .heart.is-playing .heart-coda {
+    transition: opacity 450ms ease-out 590ms;
   }
+}
 
-  .heart-turn.is-gap .frise-dot--guess,
-  .heart-turn.is-gap .frise-mark--guess {
-    opacity: 1;
-    transition: opacity 700ms ease-out;
+/* Deux crans de 170 ms, chacun freiné, sans rebond. */
+@keyframes heart-roule {
+  0% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.3, 0.7, 0.2, 1);
   }
-
-  .heart-turn.is-gap .frise-arc {
-    clip-path: inset(0);
-    transition: clip-path 1000ms cubic-bezier(0.2, 0.7, 0.3, 1) 600ms;
+  50% {
+    transform: translateY(-1em);
+    animation-timing-function: cubic-bezier(0.3, 0.7, 0.2, 1);
   }
-
-  .heart-turn.is-gap .turn-b span + span {
-    opacity: 1;
-    transition: opacity 1200ms ease-out 1500ms;
+  100% {
+    transform: translateY(-2em);
   }
 }
 
@@ -1318,7 +1346,7 @@ main:has(.send) ~ .site-foot {
     font-size: 34px;
   }
 
-  /* Le titre à gauche, la prose à droite : on lit la promesse, puis l'histoire. */
+  /* Deux colonnes alignées en haut : les mots à gauche, l'année et sa réponse à droite. */
   .heart,
   .keep {
     display: grid;
@@ -1358,83 +1386,62 @@ main:has(.send) ~ .site-foot {
     margin-top: 0;
   }
 
-  /* Les années fantômes tiennent la colonne du titre, face à la prose. */
-  .souvenirs-fond {
-    left: 0;
-    right: 0;
-    height: 800px;
-  }
-
-  .heart-bet .souvenirs {
-    height: 240px;
-  }
-
   .fantomes {
     left: 0;
     right: 0;
   }
 
-  /* Un seul bloc à gauche : le titre, ton pari, 1983, puis « la réponse tombe… ». La prose à
-     droite ; la frise et la chute prennent ensuite toute la largeur, au centre, comme la
-     révélation dans l'app. */
-  .heart {
-    grid-template-rows: auto auto auto 1fr auto auto;
-  }
-
-  .heart-head {
-    grid-column: 1;
-    grid-row: 1;
+  .heart .title {
+    margin-bottom: 28px;
+    font-size: 40px;
+    line-height: 1.12;
   }
 
   .heart-body {
-    grid-column: 2;
-    grid-row: 1 / span 3;
+    padding-top: 28px;
   }
 
-  .heart-bet {
-    grid-column: 1;
-    grid-row: 2;
-    margin-top: 16px;
+  .heart-body p {
+    margin-bottom: 18px;
+    font-size: 17px;
+    line-height: 1.6;
   }
 
-  .heart-turn {
-    display: contents;
+  .heart-line {
+    margin-top: 0;
+    padding-top: 28px;
+    font-size: 28px;
   }
 
-  .heart-turn .turn-a {
-    grid-column: 1;
-    grid-row: 3;
+  .heart-year {
+    margin-top: 10px;
+    font-size: 176px;
   }
 
-  .heart-line,
-  .heart-turn .turn-a {
-    font-size: 30px;
+  .heart-line.heart-then {
+    margin-top: 20px;
+    padding-top: 0;
   }
 
-  .heart-turn .frise,
-  .heart-turn .turn-b {
-    grid-column: 1 / -1;
-    justify-self: center;
+  .frise--coeur {
+    --o: 40px;
+    --h: 38px;
+    height: 104px;
+    margin-top: 40px;
   }
 
-  .heart-turn .frise {
-    grid-row: 5;
-    margin-top: 22svh;
+  .frise--coeur .frise-year {
+    top: calc(var(--o) + 38px);
+    font-size: 11px;
   }
 
-  .heart-turn .turn-b {
-    grid-row: 6;
-    max-width: var(--measure);
-    text-align: center;
-    text-wrap: balance;
+  .frise--coeur .frise-mark {
+    font-size: 12px;
   }
 
-  .heart-turn .turn-b span:first-child {
-    font-size: 36px;
-  }
-
-  .heart-turn .turn-b span + span {
-    font-size: 24px;
+  .heart-coda {
+    margin-top: 28px;
+    font-size: 26px;
   }
 
   .frise--hero {
