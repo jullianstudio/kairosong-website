@@ -536,7 +536,13 @@ a:hover {
   height: 100%;
 }
 
-/* La clairière sous le titre : 1983 s'y fixe, rien ne passe derrière. */
+/* Le pari, sous le titre : même voix, trait plus fin. 1983 tombe juste dessous : c'est ton année. */
+.heart-line {
+  margin: 0;
+  font-weight: 400;
+}
+
+/* La clairière sous le pari : 1983 s'y fixe, rien ne passe derrière. */
 .souvenirs {
   position: relative;
   height: 220px;
@@ -563,10 +569,16 @@ a:hover {
   visibility: hidden;
 }
 
-/* La chute : « … la réponse tombe », collée au paragraphe du dessus (une charnière en Newsreader,
-   sans filet), puis un silence noir, la réponse sur la frise, et le reste. */
+/* La chute : « Puis la réponse tombe… », à la voix du titre, juste après la prose, puis un silence
+   noir, la réponse sur la frise, et le reste. */
 .heart-turn {
   margin-top: 16px;
+}
+
+.heart-turn .turn-a {
+  font-variation-settings: 'opsz' 40;
+  font-size: 28px;
+  line-height: 1.15;
 }
 
 .heart-turn p {
@@ -1393,8 +1405,8 @@ main:has(.send) ~ .site-foot {
   }
 
   .heart-head .souvenirs {
-    height: 340px;
-    margin: 24px 0 0;
+    height: 240px;
+    margin: 0;
   }
 
   .fantomes {
@@ -1402,15 +1414,20 @@ main:has(.send) ~ .site-foot {
     right: 0;
   }
 
-  /* La prose reste à droite, la charnière juste dessous ; après le silence, la réponse et la
-     chute prennent toute la largeur, au centre, comme la révélation dans l'app. */
+  /* Un seul bloc à gauche : le titre, ton pari, 1983, puis « la réponse tombe… ». La prose à
+     droite ; après le silence, la réponse et la chute prennent toute la largeur, au centre, comme
+     la révélation dans l'app. */
   .heart {
-    grid-template-rows: auto auto auto 1fr auto auto;
+    grid-template-rows: auto auto 1fr auto auto auto;
   }
 
   .heart-head {
     grid-column: 1;
-    grid-row: 1 / span 4;
+    grid-row: 1 / span 3;
+  }
+
+  .heart-line {
+    margin-top: 16px;
   }
 
   .heart-body {
@@ -1432,10 +1449,9 @@ main:has(.send) ~ .site-foot {
   }
 
   .heart-turn .turn-a {
-    grid-column: 2;
-    grid-row: 3;
-    max-width: var(--measure);
-    margin-top: 16px;
+    grid-column: 1;
+    grid-row: 4;
+    margin-top: 0;
   }
 
   .heart-turn .frise,
@@ -1457,8 +1473,8 @@ main:has(.send) ~ .site-foot {
     text-align: center;
   }
 
-  .heart-turn p {
-    font-size: 24px;
+  .heart-turn .turn-a {
+    font-size: 34px;
   }
 
   .heart-turn .turn-b {
