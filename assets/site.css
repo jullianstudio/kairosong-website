@@ -807,15 +807,18 @@ a:hover {
   }
 }
 
-/* ─── La pleine lune, avant le dernier « Jouer » (assets/lune.js) ────────── */
+/* ─── La pleine lune en halo derrière le dernier bloc (assets/lune.js) ──── */
 
+/* Le halo entoure la phrase et le bouton ; son centre est celui du bloc (le décalage compense
+   la différence entre les marges haute et basse). */
 .lune {
-  position: relative;
-  width: calc(100% + 2 * var(--screen-side));
-  margin: 0 calc(-1 * var(--screen-side));
-  height: 320px;
-  display: grid;
-  place-items: center;
+  position: absolute;
+  z-index: -1;
+  left: calc(-1 * var(--screen-side));
+  right: calc(-1 * var(--screen-side));
+  top: calc(50% + 36px - 250px);
+  height: 500px;
+  pointer-events: none;
 }
 
 .lune canvas {
@@ -823,12 +826,11 @@ a:hover {
   inset: 0;
   width: 100%;
   height: 100%;
-  /* Les ondes s'éteignent avant le bord : pas de cadre visible. */
-  -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent);
-  mask-image: radial-gradient(closest-side, #000 72%, transparent);
+  -webkit-mask-image: radial-gradient(closest-side, #000 70%, transparent);
+  mask-image: radial-gradient(closest-side, #000 70%, transparent);
 }
 
-/* Sans WebGL ou sans script : le cercle en CSS, au même diamètre (60 % de la hauteur). */
+/* Sans WebGL ou sans script : un cercle doux, pas un trait, au même diamètre (60 % de la hauteur). */
 .lune-ring {
   position: absolute;
   left: 50%;
@@ -836,30 +838,13 @@ a:hover {
   height: 60%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
-  border: 1px solid rgba(195, 187, 173, 0.85);
+  border: 1px solid rgba(195, 187, 173, 0.28);
   border-radius: 50%;
+  box-shadow: 0 0 28px rgba(195, 187, 173, 0.14), inset 0 0 28px rgba(195, 187, 173, 0.1);
 }
 
 .lune.is-gl .lune-ring {
   display: none;
-}
-
-.lune-year {
-  position: relative;
-  margin: 0;
-  font-family: var(--font-title);
-  font-variation-settings: 'opsz' 44;
-  font-size: 44px;
-  line-height: 1;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  color: var(--color-readout);
-  transition: opacity 600ms ease-out;
-}
-
-.lune.is-waiting .lune-year {
-  opacity: 0;
-  transition: none;
 }
 
 /* ─── Les gestes : chacun joue une fois, seule l'opacité bouge ──────────── */
@@ -993,12 +978,15 @@ a:hover {
 
 /* ─── Envoi et pied de page ─────────────────────────────────────────────── */
 
+/* Le dernier bloc tient dans le halo de la lune : de l'air au-dessus et au-dessous. */
 .send {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding: 72px 0 0;
+  padding: 222px 0 150px;
   text-align: center;
 }
 
@@ -1013,7 +1001,12 @@ a:hover {
 
 .send .ks-btn {
   width: 100%;
-  max-width: 320px;
+  max-width: 240px;
+}
+
+/* Sous le halo, le pied de page suit sans marge de plus. */
+main:has(.send) ~ .site-foot {
+  margin-top: 0;
 }
 
 .site-foot {
@@ -1246,8 +1239,7 @@ a:hover {
     --screen-side: 48px;
   }
 
-  .section,
-  .send {
+  .section {
     padding-top: 112px;
   }
 
@@ -1428,8 +1420,16 @@ a:hover {
     margin: 16px 0 0;
   }
 
+  .send {
+    padding-top: 250px;
+    padding-bottom: 170px;
+  }
+
   .lune {
-    height: 400px;
+    left: 0;
+    right: 0;
+    top: calc(50% + 40px - 280px);
+    height: 560px;
   }
 
   /* À droite des trois temps, à la place de l'ancienne capture : un encart, pas une section. */

@@ -1,7 +1,10 @@
-/* Fin de page : des ondes emplissent la pièce, se resserrent en un seul cercle, et l'année se
-   pose au centre. Une fois, 6 s, à son arrivée à l'écran. Code repris de l'essai « La pleine
-   lune » (WebGL, un shader, sans bibliothèque). Sans WebGL, sans script, avec « réduire les
-   animations », ou si l'appareil rame : l'image finale (le cercle et l'année). */
+/* Fin de page : la pleine lune en halo derrière le dernier bloc (« Prêt quand la musique
+   l'est. » et « Jouer »). Des ondes emplissent la pièce, se resserrent, et il reste un halo
+   doux et diffus, où des ondes se devinent encore ; pas d'année (1983 est révélée plus haut).
+   Les ondes restent faibles à l'intérieur, là où passe le texte. Une fois, 6 s, à son arrivée
+   à l'écran. Code repris de l'essai « La pleine lune » (WebGL, un shader, sans bibliothèque).
+   Sans WebGL, sans script, avec « réduire les animations », ou si l'appareil rame : l'image
+   finale. */
 (function () {
   var stage = document.querySelector('.lune');
   var cv = stage && stage.querySelector('canvas');
@@ -9,9 +12,9 @@
   var gl = cv.getContext('webgl', { antialias: false, alpha: false, preserveDrawingBuffer: true });
   if (!gl) return; // le cercle CSS reste
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var T = 6, YEAR_AT = 4.8;
+  var T = 6;
   var vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
-  // Trois sources (la pièce, ses murs) se rejoignent au centre ; l'énergie se resserre sur un seul cercle, puis se fige.
+  // Trois sources (la pièce, ses murs) se rejoignent au centre ; l'énergie se resserre sur un halo, puis se fige.
   var fs = 'precision mediump float;\n' +
     'uniform vec2 r;uniform float t;\n' +
     'float ss(float a,float b,float x){return smoothstep(a,b,x);}\n' +
@@ -23,10 +26,10 @@
     '  float k=mix(30.,52.,conv);\n' +
     '  vec2 c=vec2(0.);\n' +
     '  float f=wave(p,mix(vec2(-.45,.28),c,conv),k)+wave(p,mix(vec2(.5,-.1),c,conv),k*1.07)+wave(p,mix(vec2(-.05,-.38),c,conv),k*.93);\n' +
-    '  float band=mix(1.5,.02,ss(.35,.8,u));\n' +
-    '  float amp=ss(0.,.16,u)*(1.-ss(.62,.88,u));\n' +
-    '  float waves=f*amp*exp(-pow((d-R)/band,2.))*.55*ss(.02,.22,d+1.-conv);\n' +
-    '  float ring=exp(-pow((d-R)/mix(.03,.0028,ss(.55,.95,u)),2.))*ss(.5,.9,u);\n' +
+    '  float band=mix(1.5,.7,ss(.35,.8,u));\n' +
+    '  float amp=ss(0.,.16,u)*(1.-.5*ss(.62,.88,u));\n' +
+    '  float waves=f*amp*exp(-pow((d-R)/band,2.))*.55*ss(.02,.22,d+1.-conv)*mix(.5,1.,ss(R*.9,R*1.05,d));\n' +
+    '  float ring=exp(-pow((d-R)/mix(.1,.08,ss(.55,.95,u)),2.))*ss(.5,.9,u)*.22;\n' +
     '  gl_FragColor=vec4(vec3(.765,.733,.678)*(waves+ring*.95),1.);\n' +
     '}';
   var sh = function (type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
@@ -47,7 +50,7 @@
 
   var elapsed = still ? T : 0, raf = 0, t0 = 0, visible = false, done = still, frames = 0, since = 0, checked = false;
   // Contexte perdu (téléphone à court de mémoire) : on rend la main au cercle CSS.
-  cv.addEventListener('webglcontextlost', function () { cancelAnimationFrame(raf); raf = 0; done = true; stage.classList.remove('is-gl', 'is-waiting'); });
+  cv.addEventListener('webglcontextlost', function () { cancelAnimationFrame(raf); raf = 0; done = true; stage.classList.remove('is-gl'); });
   var lastW = 0;
   addEventListener('resize', function () {
     var w = stage.getBoundingClientRect().width;
@@ -58,12 +61,10 @@
   stage.classList.add('is-gl');
   draw(elapsed);
   if (still) return;
-  stage.classList.add('is-waiting');
 
   var finish = function () {
     elapsed = T; done = true; raf = 0;
     draw(T);
-    stage.classList.remove('is-waiting');
   };
   var frame = function (now) {
     elapsed = Math.min(T, (now - t0) / 1000);
@@ -71,7 +72,6 @@
     // Moins de 20 images sur la première seconde jouée : l'appareil rame, on pose l'image finale.
     if (!checked && now - since >= 1000) { checked = true; if (frames < 20) { finish(); return; } }
     draw(elapsed);
-    if (elapsed >= YEAR_AT) stage.classList.remove('is-waiting'); // l'année se pose quand le cercle s'affine
     if (elapsed >= T) { done = true; raf = 0; return; } // fini : le GPU se tait
     raf = requestAnimationFrame(frame);
   };
