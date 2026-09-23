@@ -495,7 +495,8 @@ a:hover {
 }
 
 /* Une seule année, la donnée ivoire de l'écran. Seul le chiffre des dizaines tourne : une
-   fenêtre d'un chiffre, fondue en haut et en bas (le rouleau, posé par assets/coeur.js). */
+   fenêtre d'un chiffre (le rouleau, posé par assets/coeur.js), fondue en haut et en bas le
+   temps qu'il roule seulement ; à l'arrivée, le 6 est net comme les autres. */
 .heart-year {
   display: flex;
   margin: 8px 0 0;
@@ -513,8 +514,6 @@ a:hover {
   display: block;
   height: 1em;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
-  mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
 }
 
 .heart-rouleau {
@@ -932,6 +931,10 @@ a:hover {
     animation: heart-roule 340ms both;
   }
 
+  .heart.is-playing .heart-roue {
+    animation: heart-fenetre 340ms both;
+  }
+
   .heart.is-playing .heart-then {
     transition: opacity 250ms ease-out 340ms;
   }
@@ -941,6 +944,19 @@ a:hover {
   .heart.is-playing .frise-mark,
   .heart.is-playing .heart-coda {
     transition: opacity 450ms ease-out 590ms;
+  }
+}
+
+/* Le fondu de la fenêtre, pendant le roulement seulement : il tombe à la dernière image. */
+@keyframes heart-fenetre {
+  0%,
+  99.9% {
+    -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+    mask-image: linear-gradient(transparent, #000 14%, #000 86%, transparent);
+  }
+  100% {
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
 
