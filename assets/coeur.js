@@ -43,7 +43,7 @@
     t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
-  var W, H, dpr, items, target, CX, CY, big;
+  var W, H, dpr, items, target, CX, CY, big, few;
 
   // Un fragment flou se prépare une fois : le flou vient de l'ombre d'un texte poussé hors du cadre.
   var sprite = function (txt, size, blur, color) {
@@ -59,6 +59,9 @@
   };
 
   var build = function () {
+    // Téléphone : le pari vient après la prose ; le dessin descend jusqu'à lui.
+    var phone = innerWidth < 1000;
+    stage.style.height = phone ? Math.round(clearing.getBoundingClientRect().bottom - stage.parentNode.getBoundingClientRect().top + 120) + 'px' : '';
     var r = stage.getBoundingClientRect();
     dpr = Math.min(2, window.devicePixelRatio || 1); W = r.width; H = r.height;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
@@ -66,7 +69,7 @@
     CX = c.left + c.width / 2 - r.left; CY = c.top + c.height / 2 - r.top;
     seed = 7; items = [];
     // Là où un texte passe par-dessus, les fantômes restent faibles ; ailleurs, ils se montrent.
-    var texts = [].map.call(document.querySelectorAll('.heart-head .eyebrow, .heart-head .title, .heart-body > p, .heart-turn .turn-a'), function (el) {
+    var texts = [].map.call(document.querySelectorAll('.heart-head .eyebrow, .heart-head .title, .heart-body > p, .heart-bet .heart-line, .heart-turn .turn-a'), function (el) {
       var b = el.getBoundingClientRect();
       return { l: b.left - r.left - 8, t: b.top - r.top - 8, r: b.right - r.left + 8, b: b.bottom - r.top + 8 };
     });
@@ -74,8 +77,8 @@
       var dx = Math.abs(vx) * 4.2 + w / 2, dy = Math.abs(vy) * 4.2 + h / 2;
       return texts.some(function (q) { return x + dx > q.l && x - dx < q.r && y + dy > q.t && y - dy < q.b; });
     };
-    big = W >= 900 ? 84 : 64;
-    var years = {}, tries = 0, count = Math.max(20, Math.min(90, Math.round(W * H / 4200)));
+    big = W >= 900 ? 84 : 64; few = phone;
+    var years = {}, tries = 0, count = few ? 14 : Math.max(20, Math.min(90, Math.round(W * H / 4200)));
     years[YEAR] = true;
     while (items.length < count && tries++ < 2000) {
       var y = 1958 + Math.floor(rnd() * 59);
@@ -87,11 +90,13 @@
       var size = 13 + z * 20, blur = 1.6 + (1 - z) * 6;
       var vx = (rnd() - 0.5) * 10, vy = (rnd() - 0.5) * 5, img = sprite(String(y), size, blur, GREY);
       var under = behind(x, yy, img.width / dpr, img.height / dpr * 0.6, vx, vy);
+      // Téléphone : jamais derrière un texte, et faibles.
+      if (few && under) continue;
       // Derrière le texte : au plus 0,25 (contraste AA tenu). Ailleurs : jusqu'à 0,78.
-      items.push({ x: x, y: yy, under: under, a: under ? 0.1 + z * 0.15 : 0.38 + z * 0.4, vx: vx, vy: vy, f: 1 + rnd() * 2.5, ph: rnd() * 6.3, img: img });
+      items.push({ x: x, y: yy, under: under, a: few ? 0.1 + z * 0.12 : under ? 0.1 + z * 0.15 : 0.38 + z * 0.4, vx: vx, vy: vy, f: 1 + rnd() * 2.5, ph: rnd() * 6.3, img: img });
     }
     // Là où aucun texte ne passe, quelques fantômes de plus : c'est là qu'on les voit.
-    var extra = W >= 900 ? 16 : 8, free = 0;
+    var extra = few ? 0 : 16, free = 0;
     for (var k = 0; free < extra && k < 3000; k++) {
       var fy = 1958 + Math.floor(rnd() * 59), fz = rnd(), fx = rnd() * W, fyy = rnd() * H;
       if (fy === 1983 || (Math.abs(fx - CX) < big * 2.1 && Math.abs(fyy - CY) < big)) continue;
@@ -114,7 +119,7 @@
       var flick = mix(0.55 + 0.45 * Math.sin(t * it.f + it.ph), 1, 1 - calm);
       // Les fantômes restent : ils pâlissent quand l'année se fixe, et s'effacent devant elle.
       var near = 1 - ss(big * 1.6, big * 3.6, Math.hypot(x - CX, y - CY));
-      cx.globalAlpha = it.a * fade * flick * (1 - (it.under ? 0.5 : 0.3) * conv) * (1 - 0.75 * conv * near);
+      cx.globalAlpha = it.a * fade * flick * (few ? 1 - conv : (1 - (it.under ? 0.5 : 0.3) * conv) * (1 - 0.75 * conv * near));
       var w = it.img.width / dpr, h = it.img.height / dpr;
       cx.drawImage(it.img, x - w / 2, y - h / 2, w, h);
     });

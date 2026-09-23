@@ -536,17 +536,29 @@ a:hover {
   height: 100%;
 }
 
-/* Le pari, sous le titre : même voix, trait plus fin. 1983 tombe juste dessous : c'est ton année. */
-.heart-line {
+/* Le pari, après la prose : « You call a year. », puis 1983 qui se fixe. Un cran sous le titre, comme
+   « la réponse tombe » et « Sometimes spot on. » ; la dernière phrase, nettement plus petite. */
+.heart-bet {
+  margin-top: 24px;
+}
+
+.heart-line,
+.heart-turn .turn-a,
+.heart-turn .turn-b span:first-child {
   margin: 0;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 32;
   font-weight: 400;
+  font-size: 23px;
+  line-height: 1.2;
+  color: var(--color-text);
 }
 
 /* La clairière sous le pari : 1983 s'y fixe, rien ne passe derrière. */
 .souvenirs {
   position: relative;
-  height: 220px;
-  margin: 0 0 16px;
+  height: 110px;
+  margin: 0;
 }
 
 /* Sans script : l'année seule, à la place exacte où le dessin la pose. */
@@ -569,39 +581,15 @@ a:hover {
   visibility: hidden;
 }
 
-/* La chute : « Puis la réponse tombe… », à la voix du titre, juste après la prose, puis un silence
-   noir, la réponse sur la frise, et le reste. */
-.heart-turn {
+/* La chute : « Then the answer lands… », puis un espace court. Le silence est un temps, pas une
+   distance : l'espace reste vide un instant, puis la frise et la phrase l'occupent ensemble. */
+.heart-turn .frise {
   margin-top: 16px;
 }
 
-.heart-turn .turn-a {
-  font-variation-settings: 'opsz' 40;
-  font-size: 28px;
-  line-height: 1.15;
-}
-
-.heart-turn p {
-  margin: 0;
-  font-family: var(--font-title);
-  font-variation-settings: 'opsz' 24;
-  font-size: 21px;
-  line-height: 1.45;
-  color: var(--color-text);
-  text-wrap: pretty;
-}
-
-.heart-turn .frise {
-  margin-top: 36svh;
-}
-
 .heart-turn .turn-b {
-  margin-top: 40px;
-  font-variation-settings: 'opsz' 44;
-  font-size: 30px;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  text-wrap: balance;
+  margin: 28px 0 0;
+  text-wrap: pretty;
 }
 
 .turn-b span {
@@ -609,7 +597,12 @@ a:hover {
 }
 
 .turn-b span + span {
-  margin-top: 16px;
+  margin-top: 12px;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 20;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
 }
 
 /* ─── Ce qui reste : le carnet de l'app, joué une fois, puis une phrase ───── */
@@ -712,9 +705,33 @@ a:hover {
 /* L'écart : une seule courbe, de ton année à la réponse, comme l'arc d'un pari dans l'app.
    La fenêtre est centrée sur la réponse (1963) : c'est elle que l'œil trouve au milieu. */
 .frise--gap {
+  --o: 58px;
   --from: 1930;
   --to: 1996;
   --o: 32px;
+}
+
+/* Les deux années au-dessus de la courbe : ton pari petit et gris, la réponse en ivoire. */
+.frise-mark {
+  position: absolute;
+  left: calc((var(--y) - var(--from)) / (var(--to) - var(--from)) * 100%);
+  transform: translateX(-50%);
+  font-family: var(--font-code);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.frise-mark--guess {
+  top: calc(var(--o) - 32px);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.frise-mark--answer {
+  top: calc(var(--o) - 42px);
+  font-size: 18px;
+  color: var(--color-readout);
 }
 
 .frise-arc {
@@ -909,28 +926,25 @@ a:hover {
     transition: opacity 400ms ease-out;
   }
 
-  /* L'écart : ton année, un souffle noir, la réponse, la courbe qui les relie, puis la phrase. */
-  .heart-turn.is-waiting .frise-dot--answer,
+  /* L'écart : un souffle d'une seconde, puis tout arrive d'un coup, la frise, la réponse et la
+     phrase ; la courbe se trace depuis ton année et vient se poser sur la réponse. */
+  .heart-turn.is-waiting .frise,
   .heart-turn.is-waiting .turn-b {
     opacity: 0;
   }
 
-  /* La courbe se trace depuis ton année et vient se poser sur la réponse. */
   .heart-turn.is-waiting .frise-arc {
     clip-path: inset(0 0 0 100%);
   }
 
+  .heart-turn.is-on .frise,
+  .heart-turn.is-on .turn-b {
+    transition: opacity 600ms ease-out 1000ms;
+  }
+
   .heart-turn.is-on .frise-arc {
     clip-path: inset(0);
-    transition: clip-path 700ms cubic-bezier(0.2, 0.7, 0.3, 1) 1100ms;
-  }
-
-  .heart-turn.is-on .frise-dot--answer {
-    transition: opacity 600ms ease-out 500ms;
-  }
-
-  .heart-turn.is-on .turn-b {
-    transition: opacity 600ms ease-out 2000ms;
+    transition: clip-path 700ms cubic-bezier(0.2, 0.7, 0.3, 1) 1300ms;
   }
 }
 
@@ -1407,9 +1421,8 @@ main:has(.send) ~ .site-foot {
     height: 800px;
   }
 
-  .heart-head .souvenirs {
+  .heart-bet .souvenirs {
     height: 240px;
-    margin: 0;
   }
 
   .fantomes {
@@ -1418,33 +1431,26 @@ main:has(.send) ~ .site-foot {
   }
 
   /* Un seul bloc à gauche : le titre, ton pari, 1983, puis « la réponse tombe… ». La prose à
-     droite ; après le silence, la réponse et la chute prennent toute la largeur, au centre, comme
-     la révélation dans l'app. */
+     droite ; la frise et la chute prennent ensuite toute la largeur, au centre, comme la
+     révélation dans l'app. */
   .heart {
-    grid-template-rows: auto auto 1fr auto auto auto;
+    grid-template-rows: auto auto auto 1fr auto auto;
   }
 
   .heart-head {
     grid-column: 1;
-    grid-row: 1 / span 3;
-  }
-
-  .heart-line {
-    margin-top: 16px;
+    grid-row: 1;
   }
 
   .heart-body {
-    display: contents;
-  }
-
-  .heart-body > p {
     grid-column: 2;
-    max-width: var(--measure);
+    grid-row: 1 / span 3;
   }
 
-  .heart-body > p:first-child {
-    padding-top: 24px;
-    border-top: 1px solid var(--color-hairline);
+  .heart-bet {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 16px;
   }
 
   .heart-turn {
@@ -1453,8 +1459,12 @@ main:has(.send) ~ .site-foot {
 
   .heart-turn .turn-a {
     grid-column: 1;
-    grid-row: 4;
-    margin-top: 0;
+    grid-row: 3;
+  }
+
+  .heart-line,
+  .heart-turn .turn-a {
+    font-size: 30px;
   }
 
   .heart-turn .frise,
@@ -1465,23 +1475,22 @@ main:has(.send) ~ .site-foot {
 
   .heart-turn .frise {
     grid-row: 5;
+    margin-top: 32px;
   }
 
   .heart-turn .turn-b {
     grid-row: 6;
-  }
-
-  .heart-turn .turn-b {
-    max-width: 18em;
+    max-width: var(--measure);
     text-align: center;
+    text-wrap: balance;
   }
 
-  .heart-turn .turn-a {
-    font-size: 34px;
+  .heart-turn .turn-b span:first-child {
+    font-size: 36px;
   }
 
-  .heart-turn .turn-b {
-    font-size: 44px;
+  .heart-turn .turn-b span + span {
+    font-size: 24px;
   }
 
   .frise--hero {
