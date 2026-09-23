@@ -581,14 +581,15 @@ a:hover {
   visibility: hidden;
 }
 
-/* La chute : « Then the answer lands… », puis un espace court. Le silence est un temps, pas une
-   distance : l'espace reste vide un instant, puis la frise et la phrase l'occupent ensemble. */
+/* La chute, étirée pour que le défilement la raconte : « Then the answer lands… », un blanc, la
+   frise et la réponse, « Sometimes spot on. », un autre blanc, puis l'écart et la dernière phrase
+   (chaque étape arrive quand elle entre à l'écran, assets/coeur.js). */
 .heart-turn .frise {
-  margin-top: 48px;
+  margin-top: 22svh;
 }
 
 .heart-turn .turn-b {
-  margin: 28px 0 0;
+  margin: 40px 0 0;
   text-wrap: pretty;
 }
 
@@ -597,7 +598,7 @@ a:hover {
 }
 
 .turn-b span + span {
-  margin-top: 12px;
+  margin-top: 18svh;
   font-family: var(--font-title);
   font-variation-settings: 'opsz' 20;
   font-size: 18px;
@@ -705,10 +706,9 @@ a:hover {
 /* L'écart : une seule courbe, de ton année à la réponse, comme l'arc d'un pari dans l'app.
    La fenêtre est centrée sur la réponse (1963) : c'est elle que l'œil trouve au milieu. */
 .frise--gap {
-  --o: 58px;
   --from: 1930;
   --to: 1996;
-  --o: 32px;
+  --o: 64px;
 }
 
 /* Les deux années au-dessus de la courbe : ton pari petit et gris, la réponse en ivoire. */
@@ -926,9 +926,11 @@ a:hover {
     transition: opacity 400ms ease-out;
   }
 
-  /* L'écart, en deux temps, après un souffle d'une seconde et demie.
-     1. La frise, la réponse seule au centre, et « Sometimes spot on. ».
-     2. Ton pari se pose sur 1983, la courbe se trace de lui à la réponse, puis la dernière phrase. */
+  /* L'écart, au fil du défilement, chaque étape à son entrée à l'écran (assets/coeur.js) :
+     1. is-on : la frise et la seule réponse, 1963 ;
+     2. is-spot : « Sometimes spot on. » ;
+     3. is-gap : ton pari se pose sur 1983, la courbe se trace de lui à la réponse, puis la
+        dernière phrase. */
   .heart-turn.is-waiting .frise,
   .heart-turn.is-waiting .frise-dot--guess,
   .heart-turn.is-waiting .frise-mark--guess,
@@ -940,23 +942,30 @@ a:hover {
     clip-path: inset(0 0 0 100%);
   }
 
-  .heart-turn.is-on .frise,
-  .heart-turn.is-on .turn-b span:first-child {
-    transition: opacity 1200ms ease-out 1500ms;
+  .heart-turn.is-on .frise {
+    opacity: 1;
+    transition: opacity 1000ms ease-out 400ms;
   }
 
-  .heart-turn.is-on .frise-dot--guess,
-  .heart-turn.is-on .frise-mark--guess {
-    transition: opacity 800ms ease-out 3400ms;
+  .heart-turn.is-spot .turn-b span:first-child {
+    opacity: 1;
+    transition: opacity 1000ms ease-out 200ms;
   }
 
-  .heart-turn.is-on .frise-arc {
+  .heart-turn.is-gap .frise-dot--guess,
+  .heart-turn.is-gap .frise-mark--guess {
+    opacity: 1;
+    transition: opacity 700ms ease-out;
+  }
+
+  .heart-turn.is-gap .frise-arc {
     clip-path: inset(0);
-    transition: clip-path 900ms cubic-bezier(0.2, 0.7, 0.3, 1) 4000ms;
+    transition: clip-path 1000ms cubic-bezier(0.2, 0.7, 0.3, 1) 600ms;
   }
 
-  .heart-turn.is-on .turn-b span + span {
-    transition: opacity 1200ms ease-out 4700ms;
+  .heart-turn.is-gap .turn-b span + span {
+    opacity: 1;
+    transition: opacity 1200ms ease-out 1500ms;
   }
 }
 
@@ -1487,7 +1496,7 @@ main:has(.send) ~ .site-foot {
 
   .heart-turn .frise {
     grid-row: 5;
-    margin-top: 64px;
+    margin-top: 22svh;
   }
 
   .heart-turn .turn-b {

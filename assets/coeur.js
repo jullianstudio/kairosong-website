@@ -3,24 +3,46 @@
       se précise et se fixe dans la clairière sous le titre, les autres restent autour, en
       fantômes. Faibles derrière le texte (0,25 au plus, contraste AA tenu), plus présentes là
       où rien n'est écrit. Code repris de l'essai « Où tu étais » (Canvas 2D).
-   2. La chute : ton année sur la frise, un souffle noir, la réponse vingt ans avant, puis la phrase.
+   2. La chute, au fil du défilement : la frise et la réponse, « Sometimes spot on. », puis ton pari,
+      la courbe de l'écart et la dernière phrase.
    Sans script ou avec « réduire les animations » : l'image finale, tout de suite. */
 (function () {
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var io = 'IntersectionObserver' in window;
 
   // ─── 2. La chute ─────────────────────────────────────────────────────────
+  // Trois étapes, chacune quand son élément entre bien à l'écran, toujours dans l'ordre et jamais
+  // plus serrées qu'un temps de lecture : la frise et la réponse, « Sometimes spot on. », l'écart.
   var turn = document.querySelector('.heart-turn');
   var gap = turn && turn.querySelector('.frise--gap');
-  if (gap && !still && io) {
+  var spans = turn && turn.querySelectorAll('.turn-b span');
+  if (gap && spans.length === 2 && !still) {
     turn.classList.add('is-waiting');
-    var seeGap = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      turn.classList.remove('is-waiting');
-      turn.classList.add('is-on');
-      seeGap.disconnect();
-    }, { threshold: 1 });
-    seeGap.observe(gap);
+    var steps = [['is-on', gap], ['is-spot', spans[0]], ['is-gap', spans[1]]];
+    var seen = [], shown = 0, next = 0, SPACE = 1400;
+    var advance = function () {
+      if (shown >= steps.length || !seen[shown]) return;
+      var wait = next - Date.now();
+      if (wait > 0) { setTimeout(advance, wait); return; }
+      turn.classList.add(steps[shown][0]);
+      shown++; next = Date.now() + SPACE;
+      if (shown === steps.length) stopWatch();
+      advance();
+    };
+    // Une étape part quand son élément franchit le quart bas de l'écran ; une étape vue valide
+    // celles d'avant (défilement rapide). Le guet s'arrête à la dernière.
+    var look = function () {
+      var line = innerHeight * 0.75;
+      for (var k = steps.length - 1; k >= 0; k--) {
+        if (steps[k][1].getBoundingClientRect().top < line) { for (var m = 0; m <= k; m++) seen[m] = true; break; }
+      }
+      advance();
+    };
+    // Trois mesures par défilement, le temps de la chute seulement : pas besoin d'attendre une image.
+    addEventListener('scroll', look, { passive: true });
+    addEventListener('resize', look, { passive: true });
+    var stopWatch = function () { removeEventListener('scroll', look); removeEventListener('resize', look); };
+    look();
   }
 
   // ─── 1. Où tu étais ──────────────────────────────────────────────────────
@@ -59,9 +81,11 @@
   };
 
   var build = function () {
-    // Téléphone : le pari vient après la prose ; le dessin descend jusqu'à lui.
+    // Le dessin descend jusqu'au pari sur téléphone (il vient après la prose), jusqu'à « la réponse
+    // tombe » sur ordinateur, et s'arrête là : la frise, plus bas, reste seule sur le noir.
     var phone = innerWidth < 1000;
-    stage.style.height = phone ? Math.round(clearing.getBoundingClientRect().bottom - stage.parentNode.getBoundingClientRect().top + 120) + 'px' : '';
+    var until = phone ? clearing : document.querySelector('.heart-turn .turn-a') || clearing;
+    stage.style.height = Math.round(until.getBoundingClientRect().bottom - stage.parentNode.getBoundingClientRect().top + (phone ? 120 : 60)) + 'px';
     var r = stage.getBoundingClientRect();
     dpr = Math.min(2, window.devicePixelRatio || 1); W = r.width; H = r.height;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
