@@ -660,13 +660,13 @@ a:hover {
 .frise-minor {
   top: calc(var(--o) + 17px);
   height: 7px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px) 0 0 / calc(100% / 76) 100% repeat-x;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px) 0 0 / calc(100% / (var(--to) - var(--from))) 100% repeat-x;
 }
 
 .frise-major {
   top: calc(var(--o) + 13px);
   height: 15px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.34) 1px, transparent 1px) 0 0 / calc(100% / 7.6) 100% repeat-x;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.34) 1px, transparent 1px) 0 0 / calc(1000% / (var(--to) - var(--from))) 100% repeat-x;
 }
 
 .frise-year,
@@ -709,8 +709,11 @@ a:hover {
   z-index: 1;
 }
 
-/* L'écart : une seule courbe, de ton année à la réponse, comme l'arc d'un pari dans l'app. */
+/* L'écart : une seule courbe, de ton année à la réponse, comme l'arc d'un pari dans l'app.
+   La fenêtre est centrée sur la réponse (1963) : c'est elle que l'œil trouve au milieu. */
 .frise--gap {
+  --from: 1930;
+  --to: 1996;
   --o: 32px;
 }
 
