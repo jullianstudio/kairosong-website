@@ -541,29 +541,6 @@ a:hover {
   text-wrap: pretty;
 }
 
-/* Les années fantômes du cœur, posées par assets/coeur.js là où rien n'est écrit : floues, fines,
-   jamais 1963 ni 1983. */
-.heart-fond {
-  position: absolute;
-  z-index: -1;
-  inset: 0 calc(-1 * var(--screen-side));
-  overflow: hidden;
-  pointer-events: none;
-  user-select: none;
-}
-
-.heart-fond span {
-  position: absolute;
-  font-family: var(--font-title);
-  font-variation-settings: 'opsz' 44;
-  font-weight: 300;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  color: var(--color-readout);
-  filter: blur(3.5px);
-}
-
 /* ─── Ce qui reste : le carnet de l'app, joué une fois, puis une phrase ───── */
 
 .keep-shot {
@@ -757,90 +734,6 @@ a:hover {
   stroke-width: 1.2;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-}
-
-/* ─── Les fantômes restent : de « Comment ça marche » aux règles ──────── */
-
-/* Les années du cœur du jeu, derrière le texte : assez nettes pour se voir en plein jour sur un
-   téléphone. Là où deux années se croisent, le fond monte jusqu'à un gris sombre ; les libellés
-   pâles du champ passent donc au gris secondaire, qui y garde le contraste AA (5 : 1). */
-.nuit {
-  position: relative;
-  isolation: isolate;
-}
-
-.nuit .eyebrow,
-.nuit .rules .pts small {
-  color: var(--color-text-secondary);
-}
-
-.fantomes {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: calc(-1 * var(--screen-side));
-  right: calc(-1 * var(--screen-side));
-  overflow: hidden;
-  pointer-events: none;
-  user-select: none;
-  -webkit-mask-image: linear-gradient(transparent, #000 8%, #000 90%, transparent);
-  mask-image: linear-gradient(transparent, #000 8%, #000 90%, transparent);
-}
-
-/* Deux couches plus hautes que le champ : la parallaxe (assets/fantomes.js) les décale. */
-.fantomes-couche {
-  position: absolute;
-  left: 0;
-  right: 0;
-  will-change: transform;
-}
-
-.fantomes-pres {
-  top: -15%;
-  height: 130%;
-}
-
-.fantomes-loin {
-  top: -30%;
-  height: 160%;
-}
-
-/* Le même dessin que le Canvas : une année floue, faite d'une ombre de texte, rien d'autre ; ici
-   deux fois moins floue et un quart plus claire, pour ne pas s'effacer au soleil. */
-.fantomes span {
-  position: absolute;
-  font-family: var(--font-title);
-  font-variation-settings: 'opsz' 44;
-  font-size: var(--s);
-  line-height: 1;
-  font-weight: 500;
-  white-space: nowrap;
-  color: transparent;
-  text-shadow: 0 0 calc(var(--b) * 0.55) rgba(156, 147, 132, calc(var(--a) * 1.25));
-  animation: fantomes-flotte var(--fd) ease-in-out var(--fl) infinite alternate paused;
-}
-
-/* Elles flottent, quelques pixels par seconde, seulement tant que le champ est à l'écran. */
-@media (prefers-reduced-motion: no-preference) {
-  .nuit.is-live .fantomes span {
-    animation-play-state: running;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .fantomes span {
-    animation: none;
-  }
-}
-
-@keyframes fantomes-flotte {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(var(--fx), var(--fy));
-  }
 }
 
 /* ─── La pleine lune en halo derrière le dernier bloc (assets/lune.js) ──── */
@@ -1400,11 +1293,6 @@ main:has(.send) ~ .site-foot {
     grid-row: 1 / -1;
     max-width: 360px;
     margin-top: 0;
-  }
-
-  .fantomes {
-    left: 0;
-    right: 0;
   }
 
   .heart .title {
