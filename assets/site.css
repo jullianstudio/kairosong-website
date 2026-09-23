@@ -19,6 +19,13 @@
   font-display: swap;
 }
 @font-face {
+  font-family: 'Space Mono';
+  src: url('fonts/SpaceMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: 'Playfair Display';
   src: url('fonts/PlayfairDisplay-Variable.woff2') format('woff2');
   font-weight: 400 900;
@@ -56,6 +63,7 @@
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-title: 'Newsreader', Georgia, 'Times New Roman', serif;
   --font-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-code: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --radius-lg: 16px;
   --tracking-wider: 0.12em;
@@ -538,6 +546,158 @@ a:hover {
   text-wrap: pretty;
 }
 
+/* ─── La frise : l'objet du jeu, un an par cran, les décennies en Space Mono ── */
+
+/* Neutre (filets blancs) : l'or reste à l'action. La réponse est l'ivoire de l'année révélée. */
+.frise {
+  --from: 1950;
+  --to: 2026;
+  --o: 0px; /* hauteur libre au-dessus du filet (l'onde de l'accueil s'y déploie) */
+  position: relative;
+  width: 100%;
+  max-width: var(--measure);
+  height: calc(var(--o) + 44px);
+}
+
+.frise-minor,
+.frise-major,
+.frise-rule {
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.frise-rule {
+  top: calc(var(--o) + 20px);
+  height: 1px;
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.frise-minor {
+  top: calc(var(--o) + 17px);
+  height: 7px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.16) 1px, transparent 1px) 0 0 / calc(100% / 76) 100% repeat-x;
+}
+
+.frise-major {
+  top: calc(var(--o) + 13px);
+  height: 15px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.34) 1px, transparent 1px) 0 0 / calc(100% / 7.6) 100% repeat-x;
+}
+
+.frise-year,
+.frise-dot,
+.frise-gap {
+  position: absolute;
+  left: calc((var(--y) - var(--from)) / (var(--to) - var(--from)) * 100%);
+}
+
+.frise-year {
+  top: calc(var(--o) + 30px);
+  transform: translateX(-50%);
+  font-family: var(--font-code);
+  font-size: 10px;
+  line-height: 12px;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+}
+
+.frise-dot {
+  top: calc(var(--o) + 20px);
+  width: 11px;
+  height: 11px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  border: 2px solid var(--color-bg);
+  background: var(--color-text-muted);
+}
+
+.frise-dot--guess {
+  background: var(--color-text-secondary);
+}
+
+.frise-dot--answer {
+  width: 13px;
+  height: 13px;
+  margin: -6px 0 0 -6px;
+  background: var(--color-readout);
+  box-shadow: 0 0 0 4px rgba(232, 220, 196, 0.2);
+  z-index: 1;
+}
+
+/* L'écart : un crochet fin au-dessus de la frise, de la réponse à ton année. */
+.frise-gap {
+  --y: var(--answer);
+  top: calc(var(--o) + 2px);
+  width: calc((var(--guess) - var(--answer)) / (var(--to) - var(--from)) * 100%);
+  height: 7px;
+  border: 1px solid var(--color-text-muted);
+  border-bottom: 0;
+}
+
+/* L'accueil : trois ondes se resserrent en un filet, et ce filet devient la frise (assets/onde.js). */
+.frise--hero {
+  --o: 24px;
+  margin: 8px auto 0;
+}
+
+.frise-onde {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: calc(var(--o) * 2 + 40px);
+  overflow: visible;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.frise-onde path {
+  fill: none;
+  stroke: url(#onde-filet);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+/* ─── Les gestes : chacun joue une fois, seule l'opacité bouge ──────────── */
+
+/* Chaque geste part de son image finale : sans script, ou avec « réduire les animations »,
+   rien n'est jamais caché. Les états d'attente ne valent qu'avec le script et le mouvement. */
+@media (prefers-reduced-motion: no-preference) {
+  /* L'accueil : caché dès la première image (classe « js » posée en tête), le temps que l'onde
+     joue. Filet de secours : si le script manque, tout apparaît à 8 s. */
+  .js .frise--hero:not(.is-set) > :not(.frise-onde) {
+    opacity: 0;
+    animation: ks-show 1ms linear 8s forwards;
+  }
+
+  .js .frise--hero.is-waving:not(.is-set) > :not(.frise-onde) {
+    animation: none;
+  }
+
+  .frise--hero > :not(.frise-onde) {
+    transition: opacity 400ms ease-out var(--at, 0ms);
+  }
+
+  .frise--hero.is-waving .frise-onde {
+    opacity: 1;
+  }
+
+  .frise--hero.is-set .frise-onde {
+    opacity: 0;
+    transition: opacity 400ms ease-out;
+  }
+}
+
+@keyframes ks-show {
+  to {
+    opacity: 1;
+  }
+}
+
 /* ─── Kairos ────────────────────────────────────────────────────────────── */
 
 /* Une histoire, pas une règle : la seule zone claire de la page, un dégradé de la
@@ -774,6 +934,11 @@ a:hover {
   padding-top: 88px;
 }
 
+/* Une année posée au-delà de la frise : elle n'est pas encore arrivée. */
+.not-found .frise {
+  margin: 8px 0 32px;
+}
+
 .not-found .lines li {
   padding: 20px 0 12px;
 }
@@ -967,6 +1132,10 @@ a:hover {
 
   .heart-body .heart-turn {
     font-size: 24px;
+  }
+
+  .frise--hero {
+    margin: 16px 0 0;
   }
 
   /* À droite des trois temps, à la place de l'ancienne capture : un encart, pas une section. */
