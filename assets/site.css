@@ -602,28 +602,16 @@ a:hover {
 
 /* ─── Ce qui reste : le carnet de l'app, joué une fois, puis une phrase ───── */
 
-.keep-body {
-  display: grid;
-  gap: 24px;
-  justify-items: start;
-  max-width: var(--measure);
-  padding: 24px 0;
-  border-top: 1px solid var(--color-hairline);
-  border-bottom: 1px solid var(--color-hairline);
-}
-
 .keep-shot {
   max-width: 280px;
+  margin-top: 8px;
 }
 
-@media (min-width: 768px) {
-  .keep-shot {
-    max-width: 360px;
-  }
-}
-
-.keep-body p {
-  margin: 0;
+.keep-text {
+  max-width: var(--measure);
+  margin: 32px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-hairline);
   color: var(--color-text-secondary);
   text-wrap: pretty;
 }
@@ -1366,19 +1354,35 @@ main:has(.send) ~ .site-foot {
     align-items: start;
   }
 
+  /* Les mots à gauche, centrés face au téléphone ; le carnet à droite, de toute sa hauteur. */
+  .keep {
+    grid-template-rows: 1fr auto auto auto 1fr;
+  }
+
   .keep .eyebrow,
-  .keep .title {
+  .keep .title,
+  .keep .keep-text {
     grid-column: 1;
   }
 
-  /* La vidéo du carnet est plus haute que le titre : l'espace en trop va sous le titre. */
-  .keep {
-    grid-template-rows: auto auto 1fr;
+  .keep .eyebrow {
+    grid-row: 2;
   }
 
-  .keep .keep-body {
+  .keep .title {
+    grid-row: 3;
+  }
+
+  .keep .keep-text {
+    grid-row: 4;
+    margin-top: 8px;
+  }
+
+  .keep .keep-shot {
     grid-column: 2;
-    grid-row: 1 / span 3;
+    grid-row: 1 / -1;
+    max-width: 360px;
+    margin-top: 0;
   }
 
   /* Les années fantômes tiennent la colonne du titre, face à la prose. */
