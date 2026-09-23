@@ -48,7 +48,7 @@
   };
   var draw = function (t) { gl.uniform1f(uT, t); gl.drawArrays(gl.TRIANGLES, 0, 3); };
 
-  var elapsed = still ? T : 0, raf = 0, t0 = 0, visible = false, done = still, frames = 0, since = 0, checked = false;
+  var elapsed = still ? T : 0, raf = 0, t0 = 0, visible = false, done = still, frames = 0, since = 0, from = 0, checked = false;
   // Contexte perdu (téléphone à court de mémoire) : on rend la main au cercle CSS.
   cv.addEventListener('webglcontextlost', function () { cancelAnimationFrame(raf); raf = 0; done = true; stage.classList.remove('is-gl'); });
   var lastW = 0;
@@ -68,9 +68,14 @@
   };
   var frame = function (now) {
     elapsed = Math.min(T, (now - t0) / 1000);
-    frames++;
-    // Moins de 20 images sur la première seconde jouée : l'appareil rame, on pose l'image finale.
-    if (!checked && now - since >= 1000) { checked = true; if (frames < 20) { finish(); return; } }
+    // L'appareil rame vraiment (moins de 15 images en une seconde) : on pose l'image finale. La
+    // mesure part 300 ms après la première image, une fois le GPU en route : ses premières images,
+    // lentes même sur un bon ordinateur, ne comptent pas.
+    if (!checked && now - since >= 300) {
+      if (!frames) from = now;
+      frames++;
+      if (now - from >= 1000) { checked = true; if (frames < 15) { finish(); return; } }
+    }
     draw(elapsed);
     if (elapsed >= T) { done = true; raf = 0; return; } // fini : le GPU se tait
     raf = requestAnimationFrame(frame);
