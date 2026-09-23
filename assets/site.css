@@ -483,6 +483,56 @@ a:hover {
   background: var(--color-text-muted);
 }
 
+/* ─── Le cœur du jeu : de la prose, un filet, puis la chute en Newsreader ─ */
+
+.heart-body {
+  max-width: var(--measure);
+  padding-top: 24px;
+  border-top: 1px solid var(--color-hairline);
+}
+
+.heart-body p {
+  margin: 0 0 16px;
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
+.heart-body .heart-turn {
+  margin: 28px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-hairline);
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 24;
+  font-size: 21px;
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+/* ─── Ce qui reste : une étoile au trait, une phrase ────────────────────── */
+
+.keep-body {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 20px;
+  align-items: start;
+  max-width: var(--measure);
+  padding: 24px 0;
+  border-top: 1px solid var(--color-hairline);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.keep-star {
+  width: 40px;
+  height: 40px;
+  color: var(--color-text-muted);
+}
+
+.keep-body p {
+  margin: 0;
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
 /* ─── Kairos ────────────────────────────────────────────────────────────── */
 
 /* Une histoire, pas une règle : la seule zone claire de la page, un dégradé de la
@@ -720,12 +770,27 @@ a:hover {
 }
 
 .not-found .lines li {
-  padding: 16px 0;
+  padding: 20px 0 12px;
 }
 
 .not-found .lines p {
   margin: 0;
   color: var(--color-text-secondary);
+}
+
+.not-found .lines .wink {
+  margin-bottom: 4px;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 40;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.not-found .lines a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
 }
 
 /* ─── Grand écran ───────────────────────────────────────────────────────── */
@@ -874,6 +939,29 @@ a:hover {
 
   .title {
     font-size: 34px;
+  }
+
+  /* Le titre à gauche, la prose à droite : on lit la promesse, puis l'histoire. */
+  .heart,
+  .keep {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 64px;
+    align-items: start;
+  }
+
+  .keep .eyebrow,
+  .keep .title {
+    grid-column: 1;
+  }
+
+  .keep .keep-body {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .heart-body .heart-turn {
+    font-size: 24px;
   }
 
   /* À droite des trois temps, à la place de l'ancienne capture : un encart, pas une section. */
