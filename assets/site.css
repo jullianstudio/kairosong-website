@@ -965,6 +965,9 @@ a:hover {
   gap: 24px;
   padding: 222px 0 150px;
   text-align: center;
+  /* Le dessin du halo s'arrête au bas du bloc : le filet du pied de page reste entier. Rien
+     n'est coupé en haut ni sur les côtés. */
+  clip-path: inset(-100vh -100vw 0);
 }
 
 .send p {
