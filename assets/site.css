@@ -926,10 +926,13 @@ a:hover {
     transition: opacity 400ms ease-out;
   }
 
-  /* L'écart : un souffle d'une seconde et demie, puis tout arrive d'un coup, la frise, la réponse et la
-     phrase ; la courbe se trace depuis ton année et vient se poser sur la réponse. */
+  /* L'écart, en deux temps, après un souffle d'une seconde et demie.
+     1. La frise, la réponse seule au centre, et « Sometimes spot on. ».
+     2. Ton pari se pose sur 1983, la courbe se trace de lui à la réponse, puis la dernière phrase. */
   .heart-turn.is-waiting .frise,
-  .heart-turn.is-waiting .turn-b {
+  .heart-turn.is-waiting .frise-dot--guess,
+  .heart-turn.is-waiting .frise-mark--guess,
+  .heart-turn.is-waiting .turn-b span {
     opacity: 0;
   }
 
@@ -938,13 +941,22 @@ a:hover {
   }
 
   .heart-turn.is-on .frise,
-  .heart-turn.is-on .turn-b {
+  .heart-turn.is-on .turn-b span:first-child {
     transition: opacity 1200ms ease-out 1500ms;
+  }
+
+  .heart-turn.is-on .frise-dot--guess,
+  .heart-turn.is-on .frise-mark--guess {
+    transition: opacity 800ms ease-out 3400ms;
   }
 
   .heart-turn.is-on .frise-arc {
     clip-path: inset(0);
-    transition: clip-path 900ms cubic-bezier(0.2, 0.7, 0.3, 1) 1900ms;
+    transition: clip-path 900ms cubic-bezier(0.2, 0.7, 0.3, 1) 4000ms;
+  }
+
+  .heart-turn.is-on .turn-b span + span {
+    transition: opacity 1200ms ease-out 4700ms;
   }
 }
 
