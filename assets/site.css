@@ -156,6 +156,11 @@ a:hover {
   text-wrap: balance;
 }
 
+/* Un titre en deux phrases : une ligne chacune, équilibrée à part. */
+.title-line {
+  display: block;
+}
+
 .lead {
   margin: 0;
   max-width: var(--measure);
