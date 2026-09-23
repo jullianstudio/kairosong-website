@@ -750,11 +750,19 @@ a:hover {
 
 /* ─── Les fantômes restent : le milieu de la page, jusqu'aux questions ──── */
 
-/* Les années du cœur du jeu, derrière le texte, faibles (0,25 au plus : le contraste AA tient
-   partout, car la parallaxe et le flottement les font passer sous le texte). */
+/* Les années du cœur du jeu, derrière le texte : assez nettes pour se voir en plein jour sur un
+   téléphone. Là où deux années se croisent, le fond monte jusqu'à un gris sombre ; les libellés
+   pâles du champ passent donc au gris secondaire, qui y garde le contraste AA (5 : 1). */
 .nuit {
   position: relative;
   isolation: isolate;
+}
+
+/* Avant .kairos .eyebrow, qui garde sa couleur sur la bande dorée (même poids, l'ordre décide). */
+.nuit .eyebrow,
+.nuit .fine-title,
+.nuit .rules .pts small {
+  color: var(--color-text-secondary);
 }
 
 .fantomes {
@@ -789,7 +797,8 @@ a:hover {
   height: 160%;
 }
 
-/* Le même dessin que le Canvas : une année floue, faite d'une ombre de texte, rien d'autre. */
+/* Le même dessin que le Canvas : une année floue, faite d'une ombre de texte, rien d'autre ; ici
+   deux fois moins floue et un quart plus claire, pour ne pas s'effacer au soleil. */
 .fantomes span {
   position: absolute;
   font-family: var(--font-title);
@@ -799,7 +808,7 @@ a:hover {
   font-weight: 500;
   white-space: nowrap;
   color: transparent;
-  text-shadow: 0 0 var(--b) rgba(156, 147, 132, var(--a));
+  text-shadow: 0 0 calc(var(--b) * 0.55) rgba(156, 147, 132, calc(var(--a) * 1.25));
   animation: fantomes-flotte var(--fd) ease-in-out var(--fl) infinite alternate paused;
 }
 
