@@ -648,8 +648,7 @@ a:hover {
 }
 
 .frise-year,
-.frise-dot,
-.frise-gap {
+.frise-dot {
   position: absolute;
   left: calc((var(--y) - var(--from)) / (var(--to) - var(--from)) * 100%);
 }
@@ -685,16 +684,6 @@ a:hover {
   background: var(--color-readout);
   box-shadow: 0 0 0 4px rgba(232, 220, 196, 0.2);
   z-index: 1;
-}
-
-/* L'écart : un crochet fin au-dessus de la frise, de la réponse à ton année. */
-.frise-gap {
-  --y: var(--answer);
-  top: calc(var(--o) + 2px);
-  width: calc((var(--guess) - var(--answer)) / (var(--to) - var(--from)) * 100%);
-  height: 7px;
-  border: 1px solid var(--color-text-muted);
-  border-bottom: 0;
 }
 
 /* L'accueil : trois ondes se resserrent en un filet, et ce filet devient la frise (assets/onde.js). */
@@ -806,19 +795,14 @@ a:hover {
     transition: opacity 400ms ease-out;
   }
 
-  /* L'écart : ton année, un souffle noir, la réponse, l'écart, puis la phrase. */
+  /* L'écart : ton année, un souffle noir, la réponse, puis la phrase. */
   .heart-turn.is-waiting .frise-dot--answer,
-  .heart-turn.is-waiting .frise-gap,
   .heart-turn.is-waiting .turn-b {
     opacity: 0;
   }
 
   .heart-turn.is-on .frise-dot--answer {
     transition: opacity 600ms ease-out 500ms;
-  }
-
-  .heart-turn.is-on .frise-gap {
-    transition: opacity 450ms ease-out 1100ms;
   }
 
   .heart-turn.is-on .turn-b {
