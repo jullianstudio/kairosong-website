@@ -745,8 +745,8 @@ a:hover {
   z-index: -1;
   left: calc(-1 * var(--screen-side));
   right: calc(-1 * var(--screen-side));
-  top: calc(50% + 10px - 210px);
-  height: 420px;
+  top: calc(50% + 36px - 250px);
+  height: 500px;
   pointer-events: none;
 }
 
@@ -874,28 +874,30 @@ a:hover {
   }
 }
 
-/* ─── Le nom, puis l'envoi : un seul écran pour finir ────────────────────── */
+/* ─── Le nom ──────────────────────────────────────────────────────────── */
 
-/* Une histoire, pas une règle : le mot grec, puis « Ready when the music is. » dans le halo. */
-.fin {
-  text-align: center;
+/* Une histoire, pas une règle : la seule zone claire de la page, un dégradé de la
+   palette, de l'or clair vers l'or profond, encré de nuit. Même geste que l'en-tête d'Explore
+   dans l'app (une lueur dans un coin, qui s'étend) ; rien à toucher dedans. Bord à bord. */
+.kairos {
+  margin: 72px calc(-1 * var(--screen-side)) 0;
+  padding: 56px var(--screen-side) 48px;
+  background: radial-gradient(ellipse 140% 110% at 15% 0%, var(--color-gold-light) 0%, var(--color-gold) 50%, var(--color-amber) 100%);
+  color: var(--color-night-900);
 }
 
-/* Au-dessus du halo, qui déborde du bloc suivant sur sa dernière ligne. */
-.kairos {
-  position: relative;
-  z-index: 1;
-  max-width: var(--measure);
-  margin: 0 auto;
+.kairos .eyebrow {
+  color: var(--color-night-700);
 }
 
 .kairos p {
   margin: 0 0 16px;
+  max-width: var(--measure);
   font-family: var(--font-title);
   font-variation-settings: 'opsz' 18;
   font-size: 19px;
   line-height: 1.5;
-  color: var(--color-text-secondary);
+  color: var(--color-night-900);
   text-wrap: pretty;
 }
 
@@ -905,13 +907,12 @@ a:hover {
 
 .kairos .kairos-word {
   display: block;
-  margin: 8px 0 12px;
+  margin: 8px 0 4px;
   font-variation-settings: 'opsz' 72;
   font-size: 56px;
   line-height: 1;
   font-weight: 400;
   letter-spacing: -0.01em;
-  color: var(--color-text);
 }
 
 /* ─── FAQ ───────────────────────────────────────────────────────────────── */
@@ -962,7 +963,7 @@ a:hover {
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding: 110px 0 90px;
+  padding: 222px 0 150px;
   text-align: center;
 }
 
@@ -1353,15 +1354,19 @@ main:has(.send) ~ .site-foot {
   }
 
   .send {
-    padding-top: 190px;
-    padding-bottom: 130px;
+    padding-top: 250px;
+    padding-bottom: 170px;
   }
 
   .lune {
     left: 0;
     right: 0;
-    top: calc(50% + 30px - 280px);
+    top: calc(50% + 40px - 280px);
     height: 560px;
+  }
+
+  .kairos {
+    padding: 72px var(--screen-side) 64px;
   }
 
   .kairos p {
