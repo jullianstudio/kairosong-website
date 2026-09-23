@@ -723,6 +723,61 @@ a:hover {
   vector-effect: non-scaling-stroke;
 }
 
+/* ─── La pleine lune, avant le dernier « Jouer » (assets/lune.js) ────────── */
+
+.lune {
+  position: relative;
+  width: calc(100% + 2 * var(--screen-side));
+  margin: 0 calc(-1 * var(--screen-side));
+  height: 320px;
+  display: grid;
+  place-items: center;
+}
+
+.lune canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Les ondes s'éteignent avant le bord : pas de cadre visible. */
+  -webkit-mask-image: radial-gradient(closest-side, #000 72%, transparent);
+  mask-image: radial-gradient(closest-side, #000 72%, transparent);
+}
+
+/* Sans WebGL ou sans script : le cercle en CSS, au même diamètre (60 % de la hauteur). */
+.lune-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: 60%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(195, 187, 173, 0.85);
+  border-radius: 50%;
+}
+
+.lune.is-gl .lune-ring {
+  display: none;
+}
+
+.lune-year {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 44;
+  font-size: 44px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--color-readout);
+  transition: opacity 600ms ease-out;
+}
+
+.lune.is-waiting .lune-year {
+  opacity: 0;
+  transition: none;
+}
+
 /* ─── Les gestes : chacun joue une fois, seule l'opacité bouge ──────────── */
 
 /* Chaque geste part de son image finale : sans script, ou avec « réduire les animations »,
@@ -1279,6 +1334,10 @@ a:hover {
 
   .frise--hero {
     margin: 16px 0 0;
+  }
+
+  .lune {
+    height: 400px;
   }
 
   /* À droite des trois temps, à la place de l'ancienne capture : un encart, pas une section. */
