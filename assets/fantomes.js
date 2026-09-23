@@ -1,5 +1,5 @@
 /* Le milieu de la page : les années fantômes du cœur du jeu restent, derrière le texte, de
-   « Comment ça marche » aux questions. Elles descendent avec la page plus lentement que lui
+   « Comment ça marche » à la fin des règles. Elles descendent avec la page plus lentement que lui
    (parallaxe, en transform seul, calculée au défilement) et flottent de quelques pixels par
    seconde (animation CSS). Les deux ne tournent que tant que le champ est à l'écran.
    Sans script ou avec « réduire les animations » : immobiles. */
