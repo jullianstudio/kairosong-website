@@ -380,7 +380,7 @@ a:hover {
   scroll-snap-align: start;
 }
 
-/* ─── Listes à filets : comment ça marche, ce qu'il faut, règles, FAQ ───── */
+/* ─── Listes à filets : comment ça marche, règles, FAQ ──────────────────── */
 
 .lines {
   margin: 0;
@@ -407,8 +407,7 @@ a:hover {
   color: var(--color-text-muted);
 }
 
-.step h3,
-.need h3 {
+.step h3 {
   margin: 0;
   font-family: var(--font-title);
   font-variation-settings: 'opsz' 40;
@@ -418,14 +417,9 @@ a:hover {
   color: var(--color-text);
 }
 
-.step p,
-.need p {
+.step p {
   margin: 0;
   color: var(--color-text-secondary);
-}
-
-.need {
-  padding: 20px 0;
 }
 
 .aside {
@@ -459,41 +453,11 @@ a:hover {
   color: var(--color-text-muted);
 }
 
-/* Les petites lignes : sous le barème, un cran plus bas, sans filets — ce n'est pas une liste de score. */
-.fine-title {
-  margin: 28px 0 8px;
-  font-family: var(--font-ui);
-  font-size: 11px;
-  line-height: 16px;
-  font-weight: 400;
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-}
-
-.fine-print {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+/* Sous le barème, une seule ligne : l'année à deviner. */
+.rules-note {
+  margin: 20px 0 0;
   max-width: var(--measure);
-}
-
-.fine-print li {
-  position: relative;
-  padding: 6px 0 6px 16px;
-  font-size: 15px;
-  line-height: 22px;
   color: var(--color-text-secondary);
-}
-
-.fine-print li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 15px;
-  width: 6px;
-  height: 1px;
-  background: var(--color-text-muted);
 }
 
 /* ─── Le cœur du jeu : de la prose, un filet, puis la chute en Newsreader ─ */
@@ -781,9 +745,7 @@ a:hover {
   isolation: isolate;
 }
 
-/* Avant .kairos .eyebrow, qui garde sa couleur sur la bande dorée (même poids, l'ordre décide). */
 .nuit .eyebrow,
-.nuit .fine-title,
 .nuit .rules .pts small {
   color: var(--color-text-secondary);
 }
@@ -866,8 +828,8 @@ a:hover {
   z-index: -1;
   left: calc(-1 * var(--screen-side));
   right: calc(-1 * var(--screen-side));
-  top: calc(50% + 36px - 250px);
-  height: 500px;
+  top: calc(50% + 10px - 210px);
+  height: 420px;
   pointer-events: none;
 }
 
@@ -975,30 +937,28 @@ a:hover {
   }
 }
 
-/* ─── Kairos ────────────────────────────────────────────────────────────── */
+/* ─── Le nom, puis l'envoi : un seul écran pour finir ────────────────────── */
 
-/* Une histoire, pas une règle : la seule zone claire de la page, un dégradé de la
-   palette, de l'or clair vers l'or profond, encré de nuit. Même geste que l'en-tête d'Explore
-   dans l'app (une lueur dans un coin, qui s'étend) ; rien à toucher dedans. */
-.kairos {
-  margin: 72px calc(-1 * var(--screen-side)) 0;
-  padding: 56px var(--screen-side) 48px;
-  background: radial-gradient(ellipse 140% 110% at 15% 0%, var(--color-gold-light) 0%, var(--color-gold) 50%, var(--color-amber) 100%);
-  color: var(--color-night-900);
+/* Une histoire, pas une règle : le mot grec, puis « Ready when the music is. » dans le halo. */
+.fin {
+  text-align: center;
 }
 
-.kairos .eyebrow {
-  color: var(--color-night-700);
+/* Au-dessus du halo, qui déborde du bloc suivant sur sa dernière ligne. */
+.kairos {
+  position: relative;
+  z-index: 1;
+  max-width: var(--measure);
+  margin: 0 auto;
 }
 
 .kairos p {
   margin: 0 0 16px;
-  max-width: var(--measure);
   font-family: var(--font-title);
   font-variation-settings: 'opsz' 18;
   font-size: 19px;
   line-height: 1.5;
-  color: var(--color-night-900);
+  color: var(--color-text-secondary);
   text-wrap: pretty;
 }
 
@@ -1008,12 +968,13 @@ a:hover {
 
 .kairos .kairos-word {
   display: block;
-  margin: 8px 0 4px;
+  margin: 8px 0 12px;
   font-variation-settings: 'opsz' 72;
   font-size: 56px;
   line-height: 1;
   font-weight: 400;
   letter-spacing: -0.01em;
+  color: var(--color-text);
 }
 
 /* ─── FAQ ───────────────────────────────────────────────────────────────── */
@@ -1064,7 +1025,7 @@ a:hover {
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  padding: 222px 0 150px;
+  padding: 110px 0 90px;
   text-align: center;
 }
 
@@ -1253,7 +1214,7 @@ main:has(.send) ~ .site-foot {
 @media (min-width: 720px) {
   .shots {
     grid-auto-flow: row;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
     margin: 0;
     padding: 0;
@@ -1273,6 +1234,7 @@ main:has(.send) ~ .site-foot {
 
   .step {
     grid-template-columns: 1fr;
+    align-content: start;
     gap: 12px;
   }
 
@@ -1280,18 +1242,9 @@ main:has(.send) ~ .site-foot {
     grid-row: auto;
   }
 
-  .needs {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0 40px;
-  }
-
-  /* Les règles ont toute la largeur : le barème à gauche, les petites lignes à droite. */
+  /* Le barème garde la mesure du texte : les points restent près de leur ligne. */
   .rules-body {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0 64px;
-    align-items: start;
+    max-width: var(--measure);
   }
 
   .rules > li {
@@ -1303,12 +1256,6 @@ main:has(.send) ~ .site-foot {
   .rules .pts {
     font-size: 28px;
     line-height: 32px;
-  }
-
-  .fine-block .fine-title {
-    margin-top: 0;
-    padding-top: 16px;
-    border-top: 1px solid var(--color-hairline);
   }
 }
 
@@ -1363,32 +1310,8 @@ main:has(.send) ~ .site-foot {
     max-width: 300px;
   }
 
-  .steps {
-    display: block;
-    border-top: 1px solid var(--color-hairline);
-  }
-
-  .steps > li {
-    border-top: 0;
-  }
-
-  .step {
-    grid-template-columns: 40px 1fr;
-    gap: 4px 20px;
-  }
-
-  .step svg {
-    grid-row: span 2;
-  }
-
   .shots {
     gap: 32px;
-  }
-
-  .split {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0 64px;
   }
 
   .title {
@@ -1519,25 +1442,15 @@ main:has(.send) ~ .site-foot {
   }
 
   .send {
-    padding-top: 250px;
-    padding-bottom: 170px;
+    padding-top: 190px;
+    padding-bottom: 130px;
   }
 
   .lune {
     left: 0;
     right: 0;
-    top: calc(50% + 40px - 280px);
+    top: calc(50% + 30px - 280px);
     height: 560px;
-  }
-
-  /* À droite des trois temps, à la place de l'ancienne capture : un encart, pas une section. */
-  .kairos {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: 112px 0 0;
-    padding: 48px 48px 44px;
-    border-radius: var(--radius-lg);
   }
 
   .kairos p {
