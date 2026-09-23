@@ -667,7 +667,8 @@ a:hover {
 }
 
 .frise-year,
-.frise-dot {
+.frise-dot,
+.frise-arc {
   position: absolute;
   left: calc((var(--y) - var(--from)) / (var(--to) - var(--from)) * 100%);
 }
@@ -703,6 +704,23 @@ a:hover {
   background: var(--color-readout);
   box-shadow: 0 0 0 4px rgba(232, 220, 196, 0.2);
   z-index: 1;
+}
+
+/* L'écart : une seule courbe, de ton année à la réponse, comme l'arc d'un pari dans l'app. */
+.frise--gap {
+  --o: 32px;
+}
+
+.frise-arc {
+  --y: var(--answer);
+  --h: 30px;
+  top: calc(var(--o) + 20px - var(--h));
+  width: calc((var(--guess) - var(--answer)) / (var(--to) - var(--from)) * 100%);
+  height: var(--h);
+  box-sizing: border-box;
+  border: 1px solid rgba(195, 187, 173, 0.6);
+  border-bottom: 0;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
 
 /* L'accueil : trois ondes se resserrent en un filet, et ce filet devient la frise (assets/onde.js). */
@@ -876,10 +894,20 @@ a:hover {
     transition: opacity 400ms ease-out;
   }
 
-  /* L'écart : ton année, un souffle noir, la réponse, puis la phrase. */
+  /* L'écart : ton année, un souffle noir, la réponse, la courbe qui les relie, puis la phrase. */
   .heart-turn.is-waiting .frise-dot--answer,
   .heart-turn.is-waiting .turn-b {
     opacity: 0;
+  }
+
+  /* La courbe se trace depuis ton année et vient se poser sur la réponse. */
+  .heart-turn.is-waiting .frise-arc {
+    clip-path: inset(0 0 0 100%);
+  }
+
+  .heart-turn.is-on .frise-arc {
+    clip-path: inset(0);
+    transition: clip-path 700ms cubic-bezier(0.2, 0.7, 0.3, 1) 1100ms;
   }
 
   .heart-turn.is-on .frise-dot--answer {
@@ -887,7 +915,7 @@ a:hover {
   }
 
   .heart-turn.is-on .turn-b {
-    transition: opacity 600ms ease-out 1700ms;
+    transition: opacity 600ms ease-out 2000ms;
   }
 }
 
