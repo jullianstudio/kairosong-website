@@ -1,0 +1,134 @@
+/* « Le cœur du jeu », deux gestes, chacun une fois, à son arrivée à l'écran.
+   1. Sous le titre : des années flottent, floues ; l'une se précise et se fixe, les autres
+      restent autour, en fantômes. Code repris de l'essai « Où tu étais » (Canvas 2D).
+   2. La chute : ton année sur la frise, un souffle noir, la réponse vingt ans avant, puis la phrase.
+   Sans script ou avec « réduire les animations » : l'image finale, tout de suite. */
+(function () {
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io = 'IntersectionObserver' in window;
+
+  // ─── 2. La chute ─────────────────────────────────────────────────────────
+  var turn = document.querySelector('.heart-turn');
+  var gap = turn && turn.querySelector('.frise--gap');
+  if (gap && !still && io) {
+    turn.classList.add('is-waiting');
+    var seeGap = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      turn.classList.remove('is-waiting');
+      turn.classList.add('is-on');
+      seeGap.disconnect();
+    }, { threshold: 1 });
+    seeGap.observe(gap);
+  }
+
+  // ─── 1. Où tu étais ──────────────────────────────────────────────────────
+  var stage = document.querySelector('.souvenirs');
+  var cv = stage && stage.querySelector('canvas');
+  var cx = cv && cv.getContext && cv.getContext('2d');
+  if (!cx) return;
+
+  var T = 6, YEAR = '1983', GREY = '#9c9384', IVORY = '#e8dcc4';
+  var FONT = function (s) { return '500 ' + s + 'px Newsreader, Georgia, serif'; };
+  var ss = function (a, b, x) { var t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
+  var mix = function (a, b, t) { return a + (b - a) * t; };
+  // Hasard à graine fixe : chaque lecture, et l'image finale, sont identiques.
+  var seed = 7;
+  var rnd = function () {
+    seed = (seed + 0x6D2B79F5) | 0;
+    var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t ^= t + Math.imul(t ^ (t >>> 7), 61 | t);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  var W, H, dpr, items, target;
+
+  // Un fragment flou se prépare une fois : le flou vient de l'ombre d'un texte poussé hors du cadre.
+  var sprite = function (txt, size, blur, color) {
+    var c = document.createElement('canvas'), g = c.getContext('2d'), pad = blur * 2 + 4;
+    g.font = FONT(size * dpr);
+    var w = g.measureText(txt).width;
+    c.width = Math.ceil(w + pad * 2 * dpr);
+    c.height = Math.ceil((size * 1.3 + pad * 2) * dpr);
+    g.font = FONT(size * dpr); g.textAlign = 'center'; g.textBaseline = 'middle';
+    if (blur > 0.3) { g.shadowColor = color; g.shadowBlur = blur * dpr; g.shadowOffsetX = 10000; g.fillText(txt, c.width / 2 - 10000, c.height / 2); }
+    else { g.fillStyle = color; g.fillText(txt, c.width / 2, c.height / 2); }
+    return c;
+  };
+
+  var build = function () {
+    var r = stage.getBoundingClientRect();
+    dpr = Math.min(2, window.devicePixelRatio || 1); W = r.width; H = r.height;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    seed = 7; items = [];
+    var years = {}, tries = 0;
+    years[YEAR] = true;
+    while (items.length < 22 && tries++ < 500) {
+      var y = 1958 + Math.floor(rnd() * 59);
+      if (years[y]) continue;
+      var z = rnd(), x = rnd() * W, yy = rnd() * H;
+      // Le centre reste libre : l'année juste s'y fixera, les fantômes l'entourent.
+      if (Math.abs(x - W / 2) < 120 && Math.abs(yy - H / 2) < 56) continue;
+      years[y] = true;
+      var size = 13 + z * 20, blur = 1.6 + (1 - z) * 6;
+      items.push({ x: x, y: yy, a: 0.16 + z * 0.3, vx: (rnd() - 0.5) * 10, vy: (rnd() - 0.5) * 5, f: 1 + rnd() * 2.5, ph: rnd() * 6.3, img: sprite(String(y), size, blur, GREY) });
+    }
+    // L'année juste part de loin, petite et floue, comme les autres.
+    target = { x0: W * 0.74, y0: H * 0.26, soft: sprite(YEAR, 64, 9, GREY), sharp: sprite(YEAR, 64, 0, IVORY) };
+  };
+
+  var draw = function (t) {
+    cx.setTransform(1, 0, 0, 1, 0, 0); cx.clearRect(0, 0, cv.width, cv.height); cx.scale(dpr, dpr);
+    var fade = ss(0, 0.8, t), conv = ss(3, 5.2, t), sharp = ss(4, 5.4, t), calm = 1 - ss(2.8, 5.6, t);
+    // Dérive : la vitesse s'éteint à mesure que les souvenirs se recoupent (intégrale de la vitesse).
+    var tau = Math.min(t, 2.8) + Math.max(0, Math.min(t, 5.6) - 2.8) * 0.5;
+    items.forEach(function (it) {
+      var x = mix(it.x + it.vx * tau, W / 2, 0.12 * conv), y = mix(it.y + it.vy * tau, H / 2, 0.12 * conv);
+      var flick = mix(0.55 + 0.45 * Math.sin(t * it.f + it.ph), 1, 1 - calm);
+      // Les fantômes restent : ils pâlissent de moitié quand l'année se fixe, sans disparaître.
+      cx.globalAlpha = it.a * fade * flick * (1 - 0.5 * conv);
+      var w = it.img.width / dpr, h = it.img.height / dpr;
+      cx.drawImage(it.img, x - w / 2, y - h / 2, w, h);
+    });
+    var e = 1 - Math.pow(1 - conv, 3), s = mix(0.34, 1, e);
+    var x = mix(target.x0, W / 2, e), y = mix(target.y0, H / 2, e);
+    var w = target.soft.width / dpr * s, h = target.soft.height / dpr * s;
+    cx.globalAlpha = fade * (0.3 + 0.7 * conv) * (1 - sharp);
+    cx.drawImage(target.soft, x - w / 2, y - h / 2, w, h);
+    var w2 = target.sharp.width / dpr * s, h2 = target.sharp.height / dpr * s;
+    cx.globalAlpha = sharp;
+    cx.drawImage(target.sharp, x - w2 / 2, y - h2 / 2, w2, h2);
+    cx.globalAlpha = 1;
+  };
+
+  var raf = 0, t0 = 0, elapsed = 0, visible = false, done = false;
+  var frame = function (now) {
+    elapsed = Math.min(T, (now - t0) / 1000);
+    draw(elapsed);
+    if (elapsed >= T) { done = true; raf = 0; return; } // fini : plus aucune image calculée
+    raf = requestAnimationFrame(frame);
+  };
+  var run = function () {
+    if (!raf && !done && visible) raf = requestAnimationFrame(function (now) { t0 = now - elapsed * 1000; frame(now); });
+  };
+  var stop = function () { cancelAnimationFrame(raf); raf = 0; };
+
+  var ready = function () {
+    build();
+    stage.classList.add('is-drawn');
+    // Seule une vraie largeur nouvelle redessine (la barre d'adresse du téléphone change la hauteur).
+    var lastW = W, rt;
+    addEventListener('resize', function () {
+      clearTimeout(rt);
+      rt = setTimeout(function () {
+        if (stage.getBoundingClientRect().width === lastW) return;
+        build(); lastW = W; draw(elapsed);
+      }, 150);
+    });
+    if (still || !io) { elapsed = T; done = true; draw(T); return; }
+    draw(0);
+    new IntersectionObserver(function (entries) {
+      visible = entries[0].isIntersecting;
+      visible ? run() : stop();
+    }, { threshold: 0.5 }).observe(stage);
+  };
+  document.fonts && document.fonts.load ? document.fonts.load(FONT(40)).then(ready, ready) : ready();
+})();
