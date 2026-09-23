@@ -166,5 +166,9 @@
       visible ? run() : stop();
     }, { threshold: 0.5 }).observe(clearing);
   };
-  document.fonts && document.fonts.load ? document.fonts.load(FONT(40)).then(ready, ready) : ready();
+  // Le dessin attend toutes les polices : la prose au-dessus du pari se remet en page en les
+  // recevant, et 1983 doit se fixer là où la clairière finit par être.
+  document.fonts && document.fonts.load
+    ? Promise.all([document.fonts.load(FONT(40)), document.fonts.ready]).then(ready, ready)
+    : ready();
 })();

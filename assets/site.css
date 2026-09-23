@@ -584,7 +584,7 @@ a:hover {
 /* La chute : « Then the answer lands… », puis un espace court. Le silence est un temps, pas une
    distance : l'espace reste vide un instant, puis la frise et la phrase l'occupent ensemble. */
 .heart-turn .frise {
-  margin-top: 16px;
+  margin-top: 48px;
 }
 
 .heart-turn .turn-b {
@@ -926,7 +926,7 @@ a:hover {
     transition: opacity 400ms ease-out;
   }
 
-  /* L'écart : un souffle d'une seconde, puis tout arrive d'un coup, la frise, la réponse et la
+  /* L'écart : un souffle d'une seconde et demie, puis tout arrive d'un coup, la frise, la réponse et la
      phrase ; la courbe se trace depuis ton année et vient se poser sur la réponse. */
   .heart-turn.is-waiting .frise,
   .heart-turn.is-waiting .turn-b {
@@ -939,12 +939,12 @@ a:hover {
 
   .heart-turn.is-on .frise,
   .heart-turn.is-on .turn-b {
-    transition: opacity 600ms ease-out 1000ms;
+    transition: opacity 1200ms ease-out 1500ms;
   }
 
   .heart-turn.is-on .frise-arc {
     clip-path: inset(0);
-    transition: clip-path 700ms cubic-bezier(0.2, 0.7, 0.3, 1) 1300ms;
+    transition: clip-path 900ms cubic-bezier(0.2, 0.7, 0.3, 1) 1900ms;
   }
 }
 
@@ -1475,7 +1475,7 @@ main:has(.send) ~ .site-foot {
 
   .heart-turn .frise {
     grid-row: 5;
-    margin-top: 32px;
+    margin-top: 64px;
   }
 
   .heart-turn .turn-b {
