@@ -638,10 +638,10 @@ a:hover {
   z-index: 1;
 }
 
-/* L'écart du cœur : 1930 à 1990 sur toute la colonne, ton pari en creux et gris, la réponse
+/* L’écart du cœur : 1940 à 1990 sur toute la colonne, centré sur la réponse, ton pari en creux et gris, la réponse
    pleine et ivoire, une seule courbe de l'un à l'autre. Les deux années au-dessus. */
 .frise--coeur {
-  --from: 1930;
+  --from: 1940;
   --to: 1990;
   --o: 36px;
   --h: 34px;
