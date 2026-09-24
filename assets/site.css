@@ -1198,8 +1198,11 @@ main:has(.send) ~ .site-foot {
     font-size: 28px;
     line-height: 32px;
   }
+}
 
-  /* Le pied de page tient sur une ligne : les liens, le copyright, puis les langues à droite. */
+/* Le pied de page tient sur une ligne : les liens, le copyright, puis les langues à droite.
+   À partir de 800 px seulement : en français, les liens plus longs n'y tiennent pas avant. */
+@media (min-width: 800px) {
   .site-foot .wrap {
     display: flex;
     flex-wrap: wrap;
