@@ -1379,6 +1379,25 @@ main:has(.send) ~ .site-foot {
   .kairos .kairos-word {
     font-size: 72px;
   }
+
+  /* Les règles et la FAQ côte à côte : libellés, titres et premiers filets sur les mêmes lignes. */
+  .rules-faq {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: 0 80px;
+    align-items: start;
+  }
+
+  .rules-faq > .section {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    align-content: start;
+  }
+
+  .rules-faq .rules-body {
+    max-width: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
