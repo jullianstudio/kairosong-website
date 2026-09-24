@@ -541,7 +541,7 @@ a:hover {
   text-wrap: pretty;
 }
 
-/* ─── Ce qui reste : le carnet de l'app, joué une fois, puis une phrase ───── */
+/* ─── Ce qui reste : le carnet de l'app, en boucle, puis une phrase ───── */
 
 .keep-shot {
   max-width: 280px;
