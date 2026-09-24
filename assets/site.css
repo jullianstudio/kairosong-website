@@ -1198,6 +1198,28 @@ main:has(.send) ~ .site-foot {
     font-size: 28px;
     line-height: 32px;
   }
+
+  /* Le pied de page tient sur une ligne : les liens, le copyright, puis les langues à droite. */
+  .site-foot .wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 24px;
+  }
+
+  .foot-row {
+    display: contents;
+  }
+
+  .copyright {
+    order: 1;
+    margin: 0;
+  }
+
+  .site-foot nav {
+    order: 2;
+    margin-left: auto;
+  }
 }
 
 @media (min-width: 1000px) {
@@ -1206,11 +1228,11 @@ main:has(.send) ~ .site-foot {
   }
 
   .section {
-    padding-top: 112px;
+    padding-top: 144px;
   }
 
   .ks-door-rule {
-    margin-top: 112px;
+    margin-top: 144px;
   }
 
   .hero {
