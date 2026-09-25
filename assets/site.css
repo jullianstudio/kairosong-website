@@ -349,14 +349,6 @@ a:hover {
   object-fit: cover;
 }
 
-.shot figcaption {
-  margin-top: 12px;
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--color-text-secondary);
-  text-align: center;
-}
-
 .hero .shot {
   width: 100%;
   max-width: 260px;
@@ -451,13 +443,6 @@ a:hover {
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
   color: var(--color-text-muted);
-}
-
-/* Sous le barème, une seule ligne : l'année à deviner. */
-.rules-note {
-  margin: 20px 0 0;
-  max-width: var(--measure);
-  color: var(--color-text-secondary);
 }
 
 /* ─── Le cœur du jeu : la prose, puis ton année, qui roule jusqu'à la réponse ─ */
