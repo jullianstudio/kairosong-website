@@ -1310,8 +1310,8 @@ main:has(.send) ~ .site-foot {
     font-size: 34px;
   }
 
-  /* Deux colonnes alignées en haut : le titre à gauche, les questions à droite ; l'année et sa
-     réponse dessous, à droite. */
+  /* Deux colonnes alignées en haut : le titre et les questions à gauche, l'année et sa réponse
+     à droite. */
   .heart,
   .keep {
     display: grid;
@@ -1352,18 +1352,17 @@ main:has(.send) ~ .site-foot {
   }
 
   .heart-head,
-  .heart-asks,
-  .heart-play {
-    grid-column: 2;
+  .heart-asks {
+    grid-column: 1;
   }
 
-  .heart-head {
-    grid-column: 1;
-    grid-row: 1;
+  .heart-play {
+    grid-column: 2;
+    grid-row: 1 / span 2;
   }
 
   .heart .title {
-    margin-bottom: 0;
+    margin-bottom: 28px;
     font-size: 40px;
     line-height: 1.12;
   }
@@ -1382,9 +1381,6 @@ main:has(.send) ~ .site-foot {
     line-height: 1.6;
   }
 
-  .heart-play {
-    margin-top: 32px;
-  }
 
   .heart-line {
     margin-top: 0;
