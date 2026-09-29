@@ -445,26 +445,41 @@ a:hover {
   color: var(--color-text-muted);
 }
 
-/* ─── Le cœur du jeu : la prose, puis ton année, qui roule jusqu'à la réponse ─ */
+/* ─── Le cœur du jeu : deux questions, puis ton année, qui roule jusqu'à la réponse ─ */
 
 .heart {
   position: relative;
   isolation: isolate;
 }
 
-.heart-body {
+/* Chaque question entre guillemets, puis ce qu'elle réveille ; un filet devant chacune. */
+.heart-asks {
   max-width: var(--measure);
+}
+
+.heart-ask {
+  margin: 0;
   padding-top: 24px;
   border-top: 1px solid var(--color-hairline);
 }
 
-.heart-body p {
-  margin: 0 0 16px;
+.heart-ask p {
+  margin: 0;
+  font-family: var(--font-title);
+  font-variation-settings: 'opsz' 32;
+  font-size: 22px;
+  line-height: 1.3;
+  color: var(--color-text);
+  text-wrap: pretty;
+}
+
+.heart-echo {
+  margin: 12px 0 28px;
   color: var(--color-text-secondary);
   text-wrap: pretty;
 }
 
-.heart-body p:last-child {
+.heart-echo:last-child {
   margin-bottom: 0;
 }
 
@@ -516,14 +531,21 @@ a:hover {
   margin-top: 16px;
 }
 
-.heart-coda {
-  margin: 24px 0 0;
-  font-family: var(--font-title);
-  font-variation-settings: 'opsz' 32;
-  font-size: 22px;
-  line-height: 1.3;
-  color: var(--color-text);
-  text-wrap: pretty;
+/* Vers « L'histoire » : une ligne discrète, avant les règles et les questions. */
+.story-link {
+  margin: 56px 0 0;
+}
+
+.story-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  min-height: var(--touch-min);
+  text-decoration: none;
+}
+
+.story-link a:hover {
+  text-decoration: underline;
 }
 
 /* ─── Ce qui reste : le carnet de l'app, en boucle, puis une phrase ───── */
@@ -791,8 +813,8 @@ a:hover {
   }
 
   /* Le cœur, une fois, quand l'année est bien à l'écran (assets/coeur.js) : le rouleau passe
-     de 8 à 6 en deux crans, puis « Then the answer lands… », puis la frise et la dernière
-     phrase. Chaque temps part à la fin du précédent. */
+     de 8 à 6 en deux crans, puis « Then the answer lands… », puis la frise. Chaque temps part
+     à la fin du précédent. */
   .heart.is-waiting .heart-rouleau {
     transform: translateY(0);
   }
@@ -800,8 +822,7 @@ a:hover {
   .heart.is-waiting .heart-then,
   .heart.is-waiting .frise-arc,
   .heart.is-waiting .frise-dot,
-  .heart.is-waiting .frise-mark,
-  .heart.is-waiting .heart-coda {
+  .heart.is-waiting .frise-mark {
     opacity: 0;
   }
 
@@ -819,8 +840,7 @@ a:hover {
 
   .heart.is-playing .frise-arc,
   .heart.is-playing .frise-dot,
-  .heart.is-playing .frise-mark,
-  .heart.is-playing .heart-coda {
+  .heart.is-playing .frise-mark {
     transition: opacity 450ms ease-out 590ms;
   }
 }
@@ -1009,7 +1029,12 @@ main:has(.send) ~ .site-foot {
   text-decoration: none;
 }
 
-.foot-links li:first-child a,
+/* Les liens gardent leur marge de chaque côté ; la liste recule d'autant, pour qu'une ligne
+   repliée sur petit écran parte, elle aussi, du bord. */
+.foot-links {
+  margin-left: -10px;
+}
+
 .langs li:first-child a {
   padding-left: 0;
 }
@@ -1095,6 +1120,22 @@ main:has(.send) ~ .site-foot {
 
 .doc address {
   font-style: normal;
+}
+
+/* L'histoire : les deux questions, détachées par un filet. */
+.doc blockquote {
+  margin: 0 0 14px;
+  padding-left: 16px;
+  border-left: 1px solid var(--color-hairline);
+}
+
+.doc blockquote p {
+  margin: 0 0 6px;
+  color: var(--color-text);
+}
+
+.doc blockquote p:last-child {
+  margin-bottom: 0;
 }
 
 .doc .updated {
@@ -1269,7 +1310,8 @@ main:has(.send) ~ .site-foot {
     font-size: 34px;
   }
 
-  /* Deux colonnes alignées en haut : les mots à gauche, l'année et sa réponse à droite. */
+  /* Deux colonnes alignées en haut : le titre à gauche, les questions à droite ; l'année et sa
+     réponse dessous, à droite. */
   .heart,
   .keep {
     display: grid;
@@ -1309,20 +1351,39 @@ main:has(.send) ~ .site-foot {
     margin-top: 0;
   }
 
+  .heart-head,
+  .heart-asks,
+  .heart-play {
+    grid-column: 2;
+  }
+
+  .heart-head {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
   .heart .title {
-    margin-bottom: 28px;
+    margin-bottom: 0;
     font-size: 40px;
     line-height: 1.12;
   }
 
-  .heart-body {
+  .heart-ask {
     padding-top: 28px;
   }
 
-  .heart-body p {
-    margin-bottom: 18px;
+  .heart-ask p {
+    font-size: 26px;
+  }
+
+  .heart-echo {
+    margin-bottom: 36px;
     font-size: 17px;
     line-height: 1.6;
+  }
+
+  .heart-play {
+    margin-top: 32px;
   }
 
   .heart-line {
@@ -1355,11 +1416,6 @@ main:has(.send) ~ .site-foot {
 
   .frise--coeur .frise-mark {
     font-size: 12px;
-  }
-
-  .heart-coda {
-    margin-top: 28px;
-    font-size: 26px;
   }
 
   .frise--hero {
