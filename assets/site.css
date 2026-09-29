@@ -224,19 +224,6 @@ a:hover {
   border-color: var(--color-gold-light);
 }
 
-/* Plaque à filet or — l'action forte qui n'est pas LE geste de l'écran. */
-.ks-btn--plate-gold,
-.ks-btn--plate-gold:hover {
-  background: var(--color-surface);
-  border-color: var(--color-gold-a50);
-  color: var(--color-accent);
-}
-.ks-btn--plate-gold:active {
-  background: var(--color-surface-alt);
-  border-color: var(--color-accent-strong);
-  color: var(--color-accent-strong);
-}
-
 .ks-chevron {
   display: inline-block;
   flex: none;
@@ -531,21 +518,52 @@ a:hover {
   margin-top: 16px;
 }
 
-/* Vers « L'histoire » : une ligne discrète, avant les règles et les questions. */
+/* Vers « L'histoire » : une rangée entre deux filets, comme une ligne de liste de l'app. Toute
+   la rangée se touche ; le chevron seul prend l'or au survol. */
 .story-link {
+  max-width: var(--measure);
   margin: 56px 0 0;
 }
 
 .story-link a {
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 0.35em;
-  min-height: var(--touch-min);
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 64px;
+  padding: 12px 0;
+  border-top: 1px solid var(--color-hairline);
+  border-bottom: 1px solid var(--color-hairline);
+  color: var(--color-text);
   text-decoration: none;
 }
 
-.story-link a:hover {
-  text-decoration: underline;
+.story-eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.story-title {
+  display: block;
+  font-family: var(--font-title);
+  font-size: 21px;
+  line-height: 1.3;
+}
+
+.story-link .ks-chevron {
+  margin-right: 4px;
+  color: var(--color-text-muted);
+  transform: rotate(45deg);
+}
+
+.story-link a:hover .ks-chevron,
+.story-link a:focus-visible .ks-chevron {
+  color: var(--color-accent);
 }
 
 /* ─── Ce qui reste : le carnet de l'app, en boucle, puis une phrase ───── */
