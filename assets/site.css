@@ -984,6 +984,13 @@ a:hover {
   max-width: 240px;
 }
 
+/* Sans lune (fin de « L’histoire ») : un filet, puis l’envoi, sans le vide réservé au halo. */
+.send.send--plain {
+  margin-top: 56px;
+  padding: 48px 0 72px;
+  border-top: 1px solid var(--color-hairline);
+}
+
 /* Sous le halo, le pied de page suit sans marge de plus. */
 main:has(.send) ~ .site-foot {
   margin-top: 0;
