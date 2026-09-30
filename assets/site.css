@@ -531,7 +531,7 @@ a:hover {
   margin-top: 16px;
 }
 
-/* Vers « L'histoire » : une plaque à filet or. Sur téléphone, toute la largeur (le libellé peut
+/* Vers « L'histoire », au bout de « Ce qui reste » : une plaque à filet or. Sur téléphone, toute la largeur (le libellé peut
    passer sur deux lignes) ; sur grand écran, le bouton prend la taille de son libellé, sur une ligne. */
 .story-link {
   margin: 56px 0 0;
@@ -1335,12 +1335,13 @@ main:has(.send) ~ .site-foot {
   /* Les mots à gauche, calés sur le haut du téléphone, comme le cœur du jeu ; le carnet à droite,
      de toute sa hauteur. */
   .keep {
-    grid-template-rows: auto auto 1fr;
+    grid-template-rows: auto auto auto 1fr;
   }
 
   .keep .eyebrow,
   .keep .title,
-  .keep .keep-text {
+  .keep .keep-text,
+  .keep .story-link {
     grid-column: 1;
   }
 
@@ -1355,6 +1356,12 @@ main:has(.send) ~ .site-foot {
   .keep .keep-text {
     grid-row: 3;
     margin-top: 8px;
+  }
+
+  /* Le bouton de l'histoire remonte sous la phrase : l'or du filet le détache de la colonne. */
+  .keep .story-link {
+    grid-row: 4;
+    margin-top: 48px;
   }
 
   .keep .keep-shot {
