@@ -1332,10 +1332,10 @@ main:has(.send) ~ .site-foot {
     align-items: start;
   }
 
-  /* Les mots à gauche, calés sur le haut du téléphone, comme le cœur du jeu ; le carnet à droite,
-     de toute sa hauteur. */
+  /* Les mots et le bouton de l'histoire à gauche, en un seul bloc centré face au téléphone ; le
+     carnet à droite, de toute sa hauteur. */
   .keep {
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-rows: 1fr auto auto auto auto 1fr;
   }
 
   .keep .eyebrow,
@@ -1346,24 +1346,22 @@ main:has(.send) ~ .site-foot {
   }
 
   .keep .eyebrow {
-    grid-row: 1;
-  }
-
-  .keep .title {
     grid-row: 2;
   }
 
-  .keep .keep-text {
+  .keep .title {
     grid-row: 3;
+  }
+
+  .keep .keep-text {
+    grid-row: 4;
     margin-top: 8px;
   }
 
-  /* Le bouton de l'histoire ferme la colonne : son bas s'aligne sur le bas du carnet, et l'or du
-     filet le détache du texte. */
+  /* Le bouton de l'histoire ferme le bloc, sous la phrase ; l'or du filet le détache du texte. */
   .keep .story-link {
-    grid-row: 4;
-    align-self: end;
-    margin-top: 48px;
+    grid-row: 5;
+    margin-top: 40px;
   }
 
   .keep .keep-shot {
