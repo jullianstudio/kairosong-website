@@ -1332,9 +1332,10 @@ main:has(.send) ~ .site-foot {
     align-items: start;
   }
 
-  /* Les mots à gauche, centrés face au téléphone ; le carnet à droite, de toute sa hauteur. */
+  /* Les mots à gauche, calés sur le haut du téléphone, comme le cœur du jeu ; le carnet à droite,
+     de toute sa hauteur. */
   .keep {
-    grid-template-rows: 1fr auto auto auto 1fr;
+    grid-template-rows: auto auto 1fr;
   }
 
   .keep .eyebrow,
@@ -1344,15 +1345,15 @@ main:has(.send) ~ .site-foot {
   }
 
   .keep .eyebrow {
-    grid-row: 2;
+    grid-row: 1;
   }
 
   .keep .title {
-    grid-row: 3;
+    grid-row: 2;
   }
 
   .keep .keep-text {
-    grid-row: 4;
+    grid-row: 3;
     margin-top: 8px;
   }
 
