@@ -224,16 +224,17 @@ a:hover {
   border-color: var(--color-gold-light);
 }
 
-/* Plaque neutre — les rangées utilitaires, et ce qui mène ailleurs sans être le jeu. */
-.ks-btn--plate,
-.ks-btn--plate:hover {
+/* Plaque à filet or — une action forte qui n'est pas « Jouer » : ici, l'histoire. */
+.ks-btn--plate-gold,
+.ks-btn--plate-gold:hover {
   background: var(--color-surface);
-  border-color: var(--color-hairline);
-  color: var(--color-text);
-}
-.ks-btn--plate:active {
-  background: var(--color-surface-alt);
   border-color: var(--color-gold-a50);
+  color: var(--color-accent);
+}
+.ks-btn--plate-gold:active {
+  background: var(--color-surface-alt);
+  border-color: var(--color-accent-strong);
+  color: var(--color-accent-strong);
 }
 
 .ks-chevron {
@@ -530,9 +531,9 @@ a:hover {
   margin-top: 16px;
 }
 
-/* Vers « L'histoire » : une plaque neutre, sans or ; « Jouer » reste le seul appel doré. */
+/* Vers « L'histoire » : une plaque à filet or. Sur téléphone, toute la largeur (le libellé peut
+   passer sur deux lignes) ; sur grand écran, le bouton prend la taille de son libellé, sur une ligne. */
 .story-link {
-  max-width: 320px;
   margin: 56px 0 0;
 }
 
@@ -541,6 +542,15 @@ a:hover {
   padding-left: 20px;
   padding-right: 20px;
   text-align: center;
+}
+
+@media (min-width: 720px) {
+  .story-link .ks-btn {
+    width: auto;
+    padding-left: 32px;
+    padding-right: 32px;
+    white-space: nowrap;
+  }
 }
 
 /* ─── Ce qui reste : le carnet de l'app, en boucle, puis une phrase ───── */
