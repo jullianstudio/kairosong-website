@@ -1358,9 +1358,11 @@ main:has(.send) ~ .site-foot {
     margin-top: 8px;
   }
 
-  /* Le bouton de l'histoire remonte sous la phrase : l'or du filet le détache de la colonne. */
+  /* Le bouton de l'histoire ferme la colonne : son bas s'aligne sur le bas du carnet, et l'or du
+     filet le détache du texte. */
   .keep .story-link {
     grid-row: 4;
+    align-self: end;
     margin-top: 48px;
   }
 
