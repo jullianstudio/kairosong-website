@@ -9,7 +9,7 @@
   var stage = document.querySelector('.lune');
   var cv = stage && stage.querySelector('canvas');
   if (!cv || !('IntersectionObserver' in window)) return;
-  var gl = cv.getContext('webgl', { antialias: false, alpha: false, preserveDrawingBuffer: true });
+  var gl = cv.getContext('webgl', { antialias: false, preserveDrawingBuffer: true });
   if (!gl) return; // le cercle CSS reste
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var T = 6;
@@ -30,7 +30,8 @@
     '  float amp=ss(0.,.16,u)*(1.-ss(.62,.88,u));\n' +
     '  float waves=f*amp*exp(-pow((d-R)/band,2.))*.55*ss(.02,.22,d+1.-conv)*mix(.5,1.,ss(R*.9,R*1.05,d));\n' +
     '  float ring=exp(-pow((d-R)/mix(.03,.0028,ss(.55,.95,u)),2.))*ss(.5,.9,u);\n' +
-    '  gl_FragColor=vec4(vec3(.765,.733,.678)*(waves+ring*.95),1.);\n' +
+    '  float v=clamp(waves+ring*.95,0.,1.);\n' +
+    '  gl_FragColor=vec4(vec3(.765,.733,.678)*v,v);\n' + // transparent : les braises passent dessous
     '}';
   var sh = function (type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
   var pr = gl.createProgram();
