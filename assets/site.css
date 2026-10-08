@@ -1235,13 +1235,14 @@ main:has(.send) ~ .site-foot {
   font-size: 14px;
 }
 
-/* L'histoire se pose au milieu de l'écran, face au visiteur ; seul le titre se centre, le récit
-   reste aligné à gauche pour se lire d'un trait. */
-.doc.story {
+/* Les pages de texte (l'histoire, les mentions, la confidentialité) se posent au milieu de
+   l'écran, face au visiteur ; seul le titre se centre, le texte reste aligné à gauche pour se
+   lire d'un trait. */
+.doc {
   margin-inline: auto;
 }
 
-.doc.story h1 {
+.doc h1 {
   text-align: center;
 }
 
