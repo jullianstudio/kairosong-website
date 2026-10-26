@@ -403,6 +403,36 @@ a:hover {
   color: var(--color-text-muted);
 }
 
+/* Le QR vers l'app ne sert qu'à qui lit le site sur un ordinateur : il passe au téléphone en le
+   scannant. Sur un écran tactile ou étroit, il ne s'affiche pas. Un fond gris chaud plutôt
+   qu'ivoire : l'ivoire reste au mot « Kairosong ». */
+.hero-qr {
+  display: none;
+}
+
+@media (min-width: 1000px) and (hover: hover) and (pointer: fine) {
+  .hero-qr {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+  }
+
+  .hero-qr img {
+    display: block;
+    width: 88px;
+    height: 88px;
+    border-radius: 6px;
+  }
+
+  .hero-qr p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--color-text-muted);
+  }
+}
+
 /* ─── Emplacements de capture (Jul les fournira, 360 × 640) ─────────────── */
 
 .shot {
