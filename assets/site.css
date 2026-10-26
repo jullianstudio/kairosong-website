@@ -404,8 +404,8 @@ a:hover {
 }
 
 /* Le QR vers l'app ne sert qu'à qui lit le site sur un ordinateur : il passe au téléphone en le
-   scannant. Sur un écran tactile ou étroit, il ne s'affiche pas. Un fond gris chaud plutôt
-   qu'ivoire : l'ivoire reste au mot « Kairosong ». */
+   scannant. Sur un écran tactile ou étroit, il ne s'affiche pas. Un fond blanc cassé, celui du
+   texte et du QR du salon dans l'app, plutôt qu'ivoire : l'ivoire reste au mot « Kairosong ». */
 .hero-qr {
   display: none;
 }
