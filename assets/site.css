@@ -410,12 +410,34 @@ a:hover {
   display: none;
 }
 
+/* Le QR se range à droite du bouton Play, la petite ligne court dessous. Le bouton cède un peu
+   de largeur pour que tout tienne sur une ligne dès 1000 px, dans les trois langues. */
 @media (min-width: 1000px) and (hover: hover) and (pointer: fine) {
+  .hero-cta {
+    display: grid;
+    grid-template-columns: 240px auto;
+    grid-template-areas:
+      "play qr"
+      "fine fine";
+    justify-content: start;
+    align-items: center;
+    column-gap: 28px;
+  }
+
+  .hero-cta .ks-btn {
+    grid-area: play;
+  }
+
+  .hero-cta .fine {
+    grid-area: fine;
+  }
+
   .hero-qr {
+    grid-area: qr;
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-top: 10px;
+    white-space: nowrap;
   }
 
   .hero-qr img {
