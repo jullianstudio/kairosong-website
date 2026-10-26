@@ -412,7 +412,7 @@ a:hover {
 
 /* Le QR se range à droite du bloc « bouton Play + petite ligne », et prend sa hauteur : le
    bouton (52 px), l'écart (14 px), la ligne (20 px), soit 86 px. La petite ligne ne se coupe pas,
-   pour que le bloc garde cette hauteur. En espagnol, l'ensemble demande 630 px : il n'apparaît
+   pour que le bloc garde cette hauteur. En espagnol, l'ensemble demande 645 px : il n'apparaît
    qu'à partir de 1120 px de large. */
 @media (min-width: 1120px) and (hover: hover) and (pointer: fine) {
   .hero-cta {
