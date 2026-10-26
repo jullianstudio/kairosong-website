@@ -410,15 +410,17 @@ a:hover {
   display: none;
 }
 
-/* Le QR se range à droite du bouton Play, la petite ligne court dessous. Le bouton cède un peu
-   de largeur pour que tout tienne sur une ligne dès 1000 px, dans les trois langues. */
-@media (min-width: 1000px) and (hover: hover) and (pointer: fine) {
+/* Le QR se range à droite du bloc « bouton Play + petite ligne », et prend sa hauteur : le
+   bouton (52 px), l'écart (14 px), la ligne (20 px), soit 86 px. La petite ligne ne se coupe pas,
+   pour que le bloc garde cette hauteur. En espagnol, l'ensemble demande 630 px : il n'apparaît
+   qu'à partir de 1120 px de large. */
+@media (min-width: 1120px) and (hover: hover) and (pointer: fine) {
   .hero-cta {
     display: grid;
-    grid-template-columns: 240px auto;
+    grid-template-columns: auto auto;
     grid-template-areas:
       "play qr"
-      "fine fine";
+      "fine qr";
     justify-content: start;
     align-items: center;
     column-gap: 28px;
@@ -426,10 +428,12 @@ a:hover {
 
   .hero-cta .ks-btn {
     grid-area: play;
+    max-width: none;
   }
 
   .hero-cta .fine {
     grid-area: fine;
+    white-space: nowrap;
   }
 
   .hero-qr {
@@ -442,8 +446,8 @@ a:hover {
 
   .hero-qr img {
     display: block;
-    width: 88px;
-    height: 88px;
+    width: 86px;
+    height: 86px;
     border-radius: 6px;
   }
 
