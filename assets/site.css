@@ -1694,6 +1694,15 @@ main:has(.send) ~ .site-foot {
     align-content: start;
   }
 
+  /* La FAQ n'a pas de libellé : son titre se pose sur la ligne du titre des règles. */
+  .rules-faq .faq > .title {
+    grid-row: 2;
+  }
+
+  .rules-faq .faq > .lines {
+    grid-row: 3;
+  }
+
   .rules-faq .rules-body {
     max-width: none;
   }
