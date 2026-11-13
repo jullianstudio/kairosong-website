@@ -802,6 +802,45 @@ a:hover {
   }
 }
 
+/* Le Sonar, sans image : en colonne jusqu'à 1000 px ; au-delà, le titre à gauche et les deux
+   paragraphes à droite, sur la ligne du titre. */
+@media (min-width: 720px) {
+  .sonar--texte {
+    display: block;
+  }
+}
+
+@media (min-width: 1000px) {
+  .sonar--texte {
+    display: grid;
+    grid-template-rows: auto auto auto;
+    align-items: start;
+  }
+
+  .sonar--texte .eyebrow,
+  .sonar--texte .title {
+    grid-column: 1;
+  }
+
+  .sonar--texte .eyebrow {
+    grid-row: 1;
+  }
+
+  .sonar--texte .title {
+    grid-row: 2 / span 2;
+  }
+
+  .sonar--texte .sonar-lead {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .sonar--texte .sonar-note {
+    grid-column: 2;
+    grid-row: 3;
+  }
+}
+
 /* ─── La frise : l'objet du jeu, un an par cran, les décennies en Space Mono ── */
 
 /* Neutre (filets blancs) : l'or reste à l'action. La réponse est l'ivoire de l'année révélée. */
