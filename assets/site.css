@@ -491,23 +491,6 @@ a:hover {
   justify-self: center;
 }
 
-.shots {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 62%;
-  gap: 16px;
-  margin: 0 calc(-1 * var(--screen-side));
-  padding: 0 var(--screen-side) 8px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-padding: 0 var(--screen-side);
-  list-style: none;
-}
-
-.shots > li {
-  scroll-snap-align: start;
-}
-
 /* ─── Listes à filets : comment ça marche, règles, FAQ ──────────────────── */
 
 .lines {
@@ -776,6 +759,31 @@ a:hover {
   .sonar .sonar-shot {
     justify-self: end;
     width: 300px;
+  }
+}
+
+/* Explore reprend la mise en page du Sonar, en miroir : les mots à gauche, le téléphone à droite. */
+@media (min-width: 720px) {
+  .sonar--miroir {
+    grid-template-columns: minmax(0, 1fr) 240px;
+  }
+
+  .sonar--miroir > * {
+    grid-column: 1;
+  }
+
+  .sonar--miroir .sonar-shot {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 1000px) {
+  .sonar--miroir {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .sonar--miroir .sonar-shot {
+    justify-self: start;
   }
 }
 
@@ -1412,14 +1420,6 @@ main:has(.send) ~ .site-foot {
 /* ─── Grand écran ───────────────────────────────────────────────────────── */
 
 @media (min-width: 720px) {
-  .shots {
-    grid-auto-flow: row;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-    margin: 0;
-    padding: 0;
-    overflow: visible;
-  }
 
   .steps {
     display: grid;
@@ -1533,10 +1533,6 @@ main:has(.send) ~ .site-foot {
 
   .hero .shot {
     max-width: 300px;
-  }
-
-  .shots {
-    gap: 32px;
   }
 
   .title {
