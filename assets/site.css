@@ -367,6 +367,25 @@ a:hover {
   color: var(--color-readout);
 }
 
+/* Ce que c'est, en petit sous le nom : la devise reste la seule grande phrase. */
+.brand-what {
+  margin-top: -4px;
+  /* En anglais la ligne passe sur deux à 360 px : deux moitiés égales, pas un mot orphelin. */
+  text-wrap: balance;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: var(--tracking-wider, 0.12em);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* Une phrase qui nomme la chose, entre le titre de « Trois temps » et ses trois lignes. */
+.how-lead {
+  margin-bottom: 24px;
+}
+
 .motto {
   margin: 28px 0 0;
   font-family: var(--font-title);
@@ -1666,7 +1685,14 @@ main:has(.send) ~ .site-foot {
 
   .brand {
     flex-direction: row;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+  }
+
+  .brand-what {
+    flex-basis: 100%;
+    margin-top: 0;
+    font-size: 12px;
   }
 
   .wordmark {
