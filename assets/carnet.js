@@ -1,4 +1,4 @@
-/* « Le Sonar » et « Ce qui reste » : chaque vidéo tourne en boucle tant qu'elle est à l'écran,
+/* Explore, le carnet et la danse de victoire : chaque vidéo tourne en boucle tant qu'elle est à l'écran,
    et s'arrête dès qu'elle en sort. Sans script ou avec « réduire les animations » : l'affiche
    seule, pas de lecture. */
 (function () {
