@@ -1,4 +1,4 @@
-/* Explore, le carnet et la danse de victoire : chaque vidéo tourne en boucle tant qu'elle est à l'écran,
+/* Explore et le carnet : chaque vidéo tourne en boucle tant qu'elle est à l'écran,
    et s'arrête dès qu'elle en sort. Sans script ou avec « réduire les animations » : l'affiche
    seule, pas de lecture. */
 (function () {

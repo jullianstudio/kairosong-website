@@ -539,21 +539,6 @@ a:hover {
   color: var(--color-text-secondary);
 }
 
-/* La danse de victoire : du pixel art agrandi 12 fois (720 px). Elle ne s'affiche qu'à un rapport
-   entier, 240 px, pour que chaque pixel reste net. */
-.danse {
-  margin-top: 16px;
-}
-
-.danse video {
-  display: block;
-  width: 240px;
-  height: 240px;
-  image-rendering: pixelated;
-  /* Le fond noir de la boucle laisse passer les braises de la page. */
-  mix-blend-mode: screen;
-}
-
 .rules > li {
   display: flex;
   align-items: baseline;
