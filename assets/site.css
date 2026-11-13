@@ -890,8 +890,8 @@ a:hover {
   }
 }
 
-/* Le Sonar, sans image : en colonne jusqu'à 1000 px ; au-delà, le titre à gauche et les deux
-   paragraphes à droite, sur la ligne du titre. */
+/* Le Sonar, sans image : en colonne jusqu'à 1000 px ; au-delà, le titre et le premier paragraphe
+   à gauche, le second à droite, sur la même ligne que le premier. */
 @media (min-width: 720px) {
   .sonar--texte {
     display: block;
@@ -906,7 +906,8 @@ a:hover {
   }
 
   .sonar--texte .eyebrow,
-  .sonar--texte .title {
+  .sonar--texte .title,
+  .sonar--texte .sonar-lead {
     grid-column: 1;
   }
 
@@ -915,17 +916,19 @@ a:hover {
   }
 
   .sonar--texte .title {
-    grid-row: 2 / span 2;
+    grid-row: 2;
   }
 
   .sonar--texte .sonar-lead {
-    grid-column: 2;
-    grid-row: 2;
+    grid-row: 3;
   }
 
   .sonar--texte .sonar-note {
     grid-column: 2;
     grid-row: 3;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
   }
 }
 
