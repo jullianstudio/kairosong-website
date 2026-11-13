@@ -705,6 +705,80 @@ a:hover {
   text-wrap: pretty;
 }
 
+/* ─── Le Sonar : le jeu en solo. Une phrase, la vidéo, puis ce qui le distingue ─── */
+
+.sonar-lead {
+  margin: 0;
+  max-width: var(--measure);
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
+.sonar-shot {
+  max-width: 260px;
+  margin-top: 32px;
+}
+
+.sonar-note {
+  max-width: var(--measure);
+  margin: 32px 0 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-hairline);
+  color: var(--color-text-secondary);
+  text-wrap: pretty;
+}
+
+/* Dès la tablette, le téléphone passe à gauche, de toute la hauteur ; les mots à droite, en un
+   seul bloc centré face à lui. Le miroir de « Ce qui reste », pour que la page alterne. */
+@media (min-width: 720px) {
+  .sonar {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    grid-template-rows: 1fr auto auto auto auto 1fr;
+    gap: 0 48px;
+  }
+
+  .sonar > * {
+    grid-column: 2;
+  }
+
+  .sonar .eyebrow {
+    grid-row: 2;
+  }
+
+  .sonar .title {
+    grid-row: 3;
+  }
+
+  .sonar .sonar-lead {
+    grid-row: 4;
+  }
+
+  .sonar .sonar-note {
+    grid-row: 5;
+    margin-top: 24px;
+  }
+
+  .sonar .sonar-shot {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    max-width: none;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 1000px) {
+  .sonar {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0 64px;
+  }
+
+  .sonar .sonar-shot {
+    justify-self: end;
+    width: 300px;
+  }
+}
+
 /* ─── La frise : l'objet du jeu, un an par cran, les décennies en Space Mono ── */
 
 /* Neutre (filets blancs) : l'or reste à l'action. La réponse est l'ivoire de l'année révélée. */
