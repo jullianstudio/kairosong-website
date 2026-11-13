@@ -564,6 +564,109 @@ a:hover {
   color: var(--color-text-muted);
 }
 
+/* ─── Le barème en escalier, comme la fiche « Le barème » de l'app : douze marches, une par année
+   d'écart. La marche « pile » fait 90 px pour une colonne de 360 px, et tout suit à l'échelle. ─── */
+
+.bareme-lede {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #9c9384;
+}
+
+.bareme {
+  container-type: inline-size;
+  max-width: 480px;
+  margin-top: 24px;
+}
+
+.bareme-bars,
+.bareme-ecarts {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.bareme-bars {
+  align-items: end;
+  border-bottom: 1px solid #403a31;
+}
+
+.bareme-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.bareme-pts {
+  font-family: var(--font-code);
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+  color: #c3bbad;
+}
+
+.bareme-bar {
+  height: max(2px, calc(var(--p) * 3.6px));
+  height: max(2px, calc(var(--p) * 1cqw));
+  border-radius: 2px 2px 0 0;
+  background: #403a31;
+}
+
+.bareme-col--pile .bareme-pts {
+  color: var(--color-gold-light);
+}
+
+.bareme-col--pile .bareme-bar {
+  background: var(--color-gold);
+}
+
+.bareme-ecarts {
+  margin-top: 6px;
+  font-size: 11px;
+  line-height: 16px;
+  text-align: center;
+  white-space: nowrap;
+  color: #6f695f;
+}
+
+/* « pile », « spot on », « exacto » : le mot déborde un peu de sa colonne, à cheval sur l'espace
+   voisin, et passe sur deux lignes s'il le faut. */
+.bareme-ecarts .bareme-pile {
+  margin: 0 -4px;
+  white-space: normal;
+  font-size: 9px;
+  color: var(--color-gold-light);
+}
+
+.bareme-axis {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 16px;
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  text-align: center;
+  color: #9c9384;
+}
+
+/* Le mode Connaisseur, sous l'escalier : les deux lignes en plus petit, pour ne pas l'écraser. */
+.bareme + .aside {
+  margin-top: 32px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.rules.rules--bonus > li {
+  min-height: 0;
+  padding: 10px 0;
+  font-size: 14px;
+}
+
+.rules.rules--bonus .pts {
+  font-size: 16px;
+  line-height: 24px;
+}
+
 /* ─── Le cœur du jeu : deux questions, puis ton année, qui roule jusqu'à la réponse ─ */
 
 .heart {
