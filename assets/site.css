@@ -1410,6 +1410,16 @@ main:has(.send) ~ .site-foot {
   margin-left: -10px;
 }
 
+/* Un lien social en pictogramme : le trait suit la couleur du texte, la cible reste de 44 px. */
+.foot-links .foot-icon {
+  justify-content: center;
+  min-width: var(--touch-min);
+}
+
+.foot-links .foot-icon svg {
+  display: block;
+}
+
 .langs li:first-child a {
   padding-left: 0;
 }
